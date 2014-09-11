@@ -6,4 +6,8 @@ class Status extends Eloquent {
 
 	public $timestamps = false;
 
+	public function message() {
+		return $this->hasMany('message');
+	}
+
 }

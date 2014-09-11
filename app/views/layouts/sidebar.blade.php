@@ -25,6 +25,9 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
             <a href="{{URL::route('users.login')}}">
+                <i class="fa fa-comment-o"></i> <span>Send Request</span>
+            </a>
+            <a href="{{URL::route('users.login')}}">
                 <i class="fa fa-user"></i> <span>Login</span>
             </a>
         </li>

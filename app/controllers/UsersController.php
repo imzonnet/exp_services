@@ -9,9 +9,8 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
-
-		return View::make('users.index', compact('users'));
+		$users = Sentry::getUser();
+		return View::make('users.index');
 	}
 
 	/**
@@ -61,6 +60,14 @@ class UsersController extends \BaseController {
         {
             return Redirect::route('users.login')->withInput(Input::except('password'))->withErrors("Not activated");
         }
+	}
+	/**
+	* Sentry logout
+	*
+	*/
+	public function logout() {
+		Sentry::logout();
+		return Redirect::route('home.index');
 	}
 	/**
 	 * Show the form for creating a new user

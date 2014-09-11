@@ -20,4 +20,14 @@ Route::get('/', function() {
 Route::get('/users/login', ['as' => 'users.login', 'uses'=>'UsersController@login']);
 Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@doLogin']);
 
-Route::resource('users', 'UsersController');
+Route::group(['before' => 'sentry'], function(){
+	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
+});
+
+Route::group(['before' => 'sentry|inGroup:user'], function(){
+	Route::resource('users', 'UsersController');
+});
+
+Route::group(array("before"=>"sentry|inGroup:supporter"), function(){
+	Route::resource('supporter', 'SupportersController');
+});

@@ -6,4 +6,15 @@ class Message extends Eloquent {
 
 	public $timestamps = false;
 
+	public function user() {
+		return $this->belongsTo('user');
+	}
+	
+	public function item() {
+		return $this->belongsTo('item');
+	}
+
+	public function status() {
+		return $this->belongsTo('status');
+	}
 }

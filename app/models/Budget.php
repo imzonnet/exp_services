@@ -6,4 +6,7 @@ class Budget extends Eloquent {
 
 	public $timestamps = false;
 
+	public function item() {
+		return $this->hasMany('item');
+	}
 }

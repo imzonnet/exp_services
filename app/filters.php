@@ -88,3 +88,56 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+/**
+* Sentry filter
+*
+* Checks if the user is logged in
+*/
+Route::filter('sentry', function()
+{
+    if ( ! Sentry::check() ) {
+        return Redirect::route('users.login');
+    }
+});
+
+/**
+* Sentry filter
+*
+* Checks if the user is logged in
+*/
+Route::filter('sentry', function()
+{
+    if ( ! Sentry::check() ) {
+        return Redirect::route('users.login');
+    }
+});
+/**
+ * InGroup filter
+ *
+ * Check if the user belongs to a group
+ */
+Route::filter('inGroup', function($route, $request, $value)
+{
+    try
+    {
+        $user = Sentry::getUser();
+
+        $group = Sentry::findGroupByName($value);
+
+        if( ! $user->inGroup($group))
+        {
+            return Redirect::route('home.index');
+        }
+    }
+    catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+    {
+        return Redirect::route('home.index');
+    }
+
+    catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+    {
+        return Redirect::route('home.index');
+    }
+});

@@ -13,6 +13,10 @@ class SentrySeeder extends Seeder {
             'first_name'  => 'John',
             'last_name'   => 'McClane',
             'activated'   => 1,
+            'phone' => '123456789',
+            'skype' => 'skypename',
+            'sex' => 'male',
+            'profile' => "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
 
         ));
 
@@ -22,17 +26,21 @@ class SentrySeeder extends Seeder {
             'first_name'  => 'Bruce',
             'last_name'   => 'Wayne',
             'activated'   => 1,
+            'phone' => '23564586',
+            'skype' => 'skypename',
+            'sex' => 'male',
+            'profile' => "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
         ));
 
         $groupAdmin = Sentry::createGroup(array(
-            'name'        => 'supporter',
+            'name'        => 'Supporter',
             'permissions' => array(
                 'supporter' => 1
             ),
         ));
 
         $groupMember = Sentry::createGroup(array(
-            'name'        => 'user',
+            'name'        => 'User',
             'permissions' => array(
                 'user' => 1
             ),

@@ -2,7 +2,7 @@
 
 
 @section('sidebar')
-@include('users.sidebar')
+
 @stop
 
 @section('content')
