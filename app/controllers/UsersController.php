@@ -17,7 +17,11 @@ class UsersController extends \BaseController {
 	* Login
 	*/
 	public function login() {
-		return View::make('users.login');
+		if( ! Sentry::check()) {
+			return View::make('users.login');
+		} else {
+			return Redirect::route('home.index');
+		}
 	}
 	/**
 	* Process Login
@@ -28,17 +32,24 @@ class UsersController extends \BaseController {
 			'password' => 'required'
 		);
 		$validator = Validator::make(Input::all(), $rules);
-
+		//validate the input
 		if($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+
 		try {
+			
 			$data = array(
 				'email' => Input::get('email'),
 				'password' => Input::get('password'),
 			);
 			$user = Sentry::authenticate($data, false);
-			return Redirect::route('users.index');
+			//check group and redirect to group page
+			if( $user->inGroup(Sentry::findGroupByName('supporter')) ) {
+				return Redirect::route('supporters.index');
+			} else if( $user->inGroup(Sentry::findGroupByName('supporter')) ){
+				return Redirect::route('users.index');
+			}
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
         {

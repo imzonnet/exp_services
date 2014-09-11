@@ -27,9 +27,15 @@
             <a href="{{URL::route('users.login')}}">
                 <i class="fa fa-comment-o"></i> <span>Send Request</span>
             </a>
+            @if( ! Sentry::check())
             <a href="{{URL::route('users.login')}}">
                 <i class="fa fa-user"></i> <span>Login</span>
             </a>
+            @else
+            <a href="{{URL::route('users.logout')}}">
+                <i class="fa fa-user"></i> <span>Logout</span>
+            </a>
+            @endif
         </li>
     </ul>
 </section>

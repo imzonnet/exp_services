@@ -9,9 +9,9 @@ class SupportersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$supporters = Supporter::all();
+		
 
-		return View::make('supporters.index', compact('supporters'));
+		return View::make('supporters.index');
 	}
 
 	/**

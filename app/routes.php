@@ -29,5 +29,5 @@ Route::group(['before' => 'sentry|inGroup:user'], function(){
 });
 
 Route::group(array("before"=>"sentry|inGroup:supporter"), function(){
-	Route::resource('supporter', 'SupportersController');
+	Route::resource('supporters', 'SupportersController');
 });
