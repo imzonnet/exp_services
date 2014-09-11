@@ -9,7 +9,7 @@ class SentrySeeder extends Seeder {
 
         $user = Sentry::createUser(array(
             'email'       => 'admin@admin.com',
-            'password'    => Hash::make("admin"),
+            'password'    => "admin",
             'first_name'  => 'John',
             'last_name'   => 'McClane',
             'activated'   => 1,
