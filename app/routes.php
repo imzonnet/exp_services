@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+
+Route::resource('home', 'HomesController');
+Route::get('/', function() {
+	return Redirect::route('home.index');
 });
+
+Route::get('/users/login', ['as' => 'users.login', 'uses'=>'UsersController@login']);
+Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@doLogin']);
+
+Route::resource('users', 'UsersController');

@@ -21,7 +21,7 @@ class CsMessages extends Migration {
 			$table->integer('status_id')->unsigned()->index();
 			$table->foreign('status_id')->references('id')->on('cs_status')->onDelete('cascade');
 			$table->text('comments');
-			$table->string('attachment');
+			$table->string('attachment')->nullable();
 			$table->timestamp('submit_date');
 		});
 	}

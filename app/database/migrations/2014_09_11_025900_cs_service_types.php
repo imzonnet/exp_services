@@ -15,7 +15,7 @@ class CsServiceTypes extends Migration {
 		Schema::create('cs_service_types', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name',45);
-			$table->string('description',45);
+			$table->string('description',45)->nullable();
 		});
 	}
 

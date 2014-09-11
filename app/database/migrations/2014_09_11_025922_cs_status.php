@@ -15,7 +15,7 @@ class CsStatus extends Migration {
 		Schema::create('cs_status', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name', 45);
-			$table->string('description');
+			$table->string('description')->nullable();
 		});
 	}
 
