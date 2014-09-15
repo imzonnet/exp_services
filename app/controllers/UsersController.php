@@ -51,9 +51,9 @@ class UsersController extends \BaseController {
 			$user = Sentry::authenticate($data, false);
 			//check group and redirect to group page
 			if( $user->inGroup(Sentry::findGroupByName('supporter')) ) {
-				return Redirect::route('supporters.index');
+				return Redirect::action('SupportersController@getIndex');
 			} else if( $user->inGroup(Sentry::findGroupByName('user')) ){
-				return Redirect::route('users.index');
+				return Redirect::action('UsersController@getIndex');
 			}
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
@@ -90,7 +90,7 @@ class UsersController extends \BaseController {
 	* View list items
 	*/
 	public function getItems() {
-		$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->get();
+		$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->paginate(10);
 		return View::make('items.index', compact('items'));
 	}
 	

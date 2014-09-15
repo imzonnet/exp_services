@@ -30,5 +30,5 @@ List Messages
 	</tr>
 	@endforeach
 </table>
-
+{{$items->links()}}
 @stop

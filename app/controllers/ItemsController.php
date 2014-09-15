@@ -58,7 +58,7 @@ class ItemsController extends \BaseController {
 			  	'email' => 'required|email',
 				'service_type_id' =>  'required|numeric',
 				'requirement' => 'required',
-				'link' => 'required|link',
+				'link' => 'required|url',
 				'info' => 'required',
 				'budget_id' =>  'required',
 				'deliver_in' => 'required|numeric',

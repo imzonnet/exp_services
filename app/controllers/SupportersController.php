@@ -15,7 +15,7 @@ class SupportersController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$items = Item::orderBy('id', 'desc')->get();
+		$items = Item::orderBy('id', 'desc')->paginate(10);
 		return View::make('supporters.index', compact('items'));
 	}
 

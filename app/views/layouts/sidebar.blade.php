@@ -20,9 +20,9 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
-
+        @if( Sentry::check() )
         <li class="treeview">
-
+    
             @if(Sentry::getUser()->inGroup(Sentry::findGroupByName('supporter')) ) 
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
@@ -46,7 +46,8 @@
             @endif
                 
         </li>
-
+        @endif
+        
         <li>
             @if( ! Sentry::check() )
                 <a href="{{URL::route('users.login')}}">
