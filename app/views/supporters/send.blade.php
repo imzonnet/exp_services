@@ -5,10 +5,31 @@ Send Request
 @stop
 
 @section('content')
-<h3>{{$item->title}}</h3>
+<div class="request-head">
+	<h3>{{$item->title}}</h3>
+	<div class="content">
+		{{$item->requirement}}
+	</div>
+</div>
+
+<div class="messages clearfix">
+	<div class="messages-wrap">
+		<div class="col-md-2">
+			<ul class="list-unstyled">
+				<li>User: </li>
+				<li></li>
+			</ul>
+		</div>	
+		<div class="col-md-10">
+world
+		</div>
+	</div>
+
+</div>
+<p class="clearfix"></p>
 <div class="form-message controller">
 	
-	{{Form::open(array('action' => array('SupportersController@postSend',$item->id), 'files' => true))}}
+	{{Form::open(array('action' => array('SupportersController@postItems',$item->id), 'files' => true))}}
 	
 		<div class="form-group">
 			{{Form::label('comments', 'Comments')}}

@@ -20,9 +20,9 @@ class ItemsController extends \BaseController {
 	public function index()
 	{
 		if($this->user->inGroup(Sentry::findGroupByName('supporter'))) {
-			$items = Item::orderBy('id', 'desc')->get();
+			$items = Item::orderBy('id', 'desc')->paginate(10);
 		} else {
-			$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->get();
+			$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->paginate(10);
 		}
 		return View::make('items.index', compact('items'));
 	}
@@ -187,48 +187,54 @@ class ItemsController extends \BaseController {
 	public function show($id)
 	{
 		$item = Item::find($id);
-		if($this->user->id != $item->user_id) {
-			return Redirect::route('items.index');
+		if(!$this->user->inGroup(Sentry::findGroupByName('supporter'))) {
+			if($this->user->id != $item->user_id) {
+				return Redirect::route('users.items');
+			}	
 		}
 		$messages = $item->message;
-		return View::make('items.show', compact('item','messages'));
+		$status = Status::getList();
+		return View::make('items.show', compact('item','messages','status'));
 	}
-
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	* Send request
+	*/
+	public function postMessages($id) {
+		//validate the input
+		$rules = array(
+			'comments' => 'required|min:10',
+			'status_id' => 'required|numeric',
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::back()->withErrors($validator)->withInput();	
+		}
+	    //insert request
+	    $itemData = Input::except('_token');
+	    $itemData['item_id'] = $id;
+	    $itemData['user_id'] = $this->user->id;
+	    $itemData['submit_date'] = new Datetime;
+	    if(!is_null(Input::file('attachment'))) {
+	    	$ext = array('application/pdf','application/msword','application/vnd.ms-excel','text/plain');
+			if(in_array(Input::file('attachment')->getMimeType(), $ext)) {
+				$fileName =  time().Input::file('attachment')->getClientOriginalName();
+				$destinationPath = 'public/upload';
+				Input::file('attachment')->move($destinationPath, $fileName);
+				$attach_path = $destinationPath . '/' . $fileName;
+			}
+		}
+		if(isset($attach_path)) {
+			$itemData['attachment'] = $attach_path;
+		}
+
+		$item = Message::create($itemData);
+
+		return Redirect::back()->with('message', 'Your request had been submited!');
 	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+	
 
 
 }

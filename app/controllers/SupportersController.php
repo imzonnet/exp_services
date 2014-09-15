@@ -15,14 +15,13 @@ class SupportersController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$items = Item::orderBy('id', 'desc')->paginate(10);
-		return View::make('supporters.index', compact('items'));
+		return View::make('supporters.index');
 	}
 
 	/**
 	* Send request
 	*/
-	public function getSend($id) {
+	public function getItems($id) {
 		$item = Item::find($id);
 		$status = Status::getList();
 		return View::make('supporters.send', compact('item', 'status'));	
@@ -30,7 +29,7 @@ class SupportersController extends \BaseController {
 	/**
 	* Send request
 	*/
-	public function postSend($id) {
+	public function postItems($id) {
 		//validate the input
 		$rules = array(
 			'comments' => 'required|min:10',

@@ -1,11 +1,12 @@
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
+    <?php if(Sentry::check()) $user = Sentry::getUser(); ?>
         <div class="pull-left image">
-            <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+            <img src="{{isset($user) && !empty($user->avatar) ? $user->avatar : Asset('public/img/avatar.png')}}" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
-            <p>Hello, {{Sentry::check() ? Sentry::getUser()->first_name .' '. Sentry::getUser()->last_name : "Guest"}}</p>
+            <p>Hello, {{ isset($user) ? $user->first_name .' '. $user->last_name : "Guest"}}</p>
         </div>
     </div>
     <!-- search form -->
@@ -20,10 +21,10 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
-        @if( Sentry::check() )
+        @if( isset($user) )
         <li class="treeview">
     
-            @if(Sentry::getUser()->inGroup(Sentry::findGroupByName('supporter')) ) 
+            @if( $user->inGroup(Sentry::findGroupByName('supporter')) ) 
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
                     <span>Supporters</span>
@@ -31,9 +32,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{url('supporters/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                    <li><a href="{{URL::route('items.list')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
                 </ul>
 
-            @elseif(Sentry::getUser()->inGroup(Sentry::findGroupByName('user')) )
+            @elseif( $user->inGroup(Sentry::findGroupByName('user')) )
                  <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
                     <span>Members</span>
@@ -41,7 +43,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{url('users/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
-                    <li><a href="{{url('users/items')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
+                    <li><a href="{{URL::route('items.list')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
                 </ul>
             @endif
                 
@@ -49,7 +51,7 @@
         @endif
         
         <li>
-            @if( ! Sentry::check() )
+            @if( !isset($user) )
                 <a href="{{URL::route('users.login')}}">
                     <i class="fa fa-user"></i> <span>Login</span>
                 </a>

@@ -8,7 +8,7 @@ class UsersController extends \BaseController {
 		$this->user = Sentry::getUser();
 	}
 	/**
-	 * Display a listing of users
+	 * Display a index Member
 	 *
 	 * @return Response
 	 */
@@ -86,24 +86,5 @@ class UsersController extends \BaseController {
 		return Redirect::route('home.index');
 	}
 
-	/**
-	* View list items
-	*/
-	public function getItems() {
-		$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->paginate(10);
-		return View::make('items.index', compact('items'));
-	}
 	
-	/**
-	* Show item detail
-	*/
-	public function getItemsShow($id) {
-		$item = Item::find($id);
-		if($this->user->id != $item->user_id) {
-			return Redirect::route('users.index');
-		}
-		$messages = $item->message;
-		return View::make('items.show', compact('item','messages'));
-	}
-
 }

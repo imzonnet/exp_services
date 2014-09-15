@@ -18,7 +18,7 @@ List Messages
 		<td>{{$item->id}}</td>
 		<td>{{$item->title}}</td>
 		<td>{{$item->created_at}}</td>
-		<td>{{link_to_route('items.show', "View messages", array($item->id), array('class' => 'btn btn-info') )}}</td>
+		<td>{{link_to_route('items.show', "Messages", array($item->id), array('class' => 'btn btn-info') )}}</td>
 	</tr>
 	@endforeach
 </table>
