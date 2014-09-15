@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>@yield('title', "AdminLTE" ) | Dashboard</title>
+        <title>Exp Control Panel | @yield('title', "Dashboard" )</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         @section('style')
         <!-- bootstrap 3.0.2 -->

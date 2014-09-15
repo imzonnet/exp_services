@@ -89,7 +89,6 @@ Route::filter('csrf', function()
 	}
 });
 
-
 /**
 * Sentry filter
 *
@@ -102,17 +101,6 @@ Route::filter('sentry', function()
     }
 });
 
-/**
-* Sentry filter
-*
-* Checks if the user is logged in
-*/
-Route::filter('sentry', function()
-{
-    if ( ! Sentry::check() ) {
-        return Redirect::route('users.login');
-    }
-});
 /**
  * InGroup filter
  *

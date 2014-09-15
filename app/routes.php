@@ -20,14 +20,25 @@ Route::get('/', function() {
 Route::get('/users/login', ['as' => 'users.login', 'uses'=>'UsersController@login']);
 Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@doLogin']);
 
+Route::get('/items/create', ['as' => 'items.create', 'uses'=>'ItemsController@create']);
+Route::post('/items/store', ['as' => 'items.store', 'uses'=>'ItemsController@store']);
+
 Route::group(['before' => 'sentry'], function(){
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
 });
 
 Route::group(['before' => 'sentry|inGroup:user'], function(){
-	Route::resource('users', 'UsersController');
+	Route::controller('users', 'UsersController');
+	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]');
 });
 
 Route::group(array("before"=>"sentry|inGroup:supporter"), function(){
-	Route::resource('supporters', 'SupportersController');
+	Route::controller('supporters', 'SupportersController');
+});
+
+
+/*
+Event::listen('illuminate.query', function($query)
+{
+    var_dump($query);
 });

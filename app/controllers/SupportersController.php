@@ -10,7 +10,6 @@ class SupportersController extends \BaseController {
 	public function index()
 	{
 		
-
 		return View::make('supporters.index');
 	}
 

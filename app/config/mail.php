@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'admin@sandbox818be7f8886048b1b873e70dfeccae3c.mailgun.org', 'name' => 'John Nguyen'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => null,
+	'username' => "postmaster@sandbox818be7f8886048b1b873e70dfeccae3c.mailgun.org",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => null,
+	'password' => "laraveldev",
 
 	/*
 	|--------------------------------------------------------------------------

@@ -9,4 +9,13 @@ class Service extends Eloquent {
 	public function item() {
 		return $this->hasMany('item');
 	}
+
+	public static function getList() {
+		$services = Service::all();
+		$data = array();
+		foreach ($services as $service) {
+			$data[$service->id] = $service->name;
+		}
+		return $data;
+	}
 }

@@ -47,7 +47,7 @@ class UsersController extends \BaseController {
 			//check group and redirect to group page
 			if( $user->inGroup(Sentry::findGroupByName('supporter')) ) {
 				return Redirect::route('supporters.index');
-			} else if( $user->inGroup(Sentry::findGroupByName('supporter')) ){
+			} else if( $user->inGroup(Sentry::findGroupByName('user')) ){
 				return Redirect::route('users.index');
 			}
 		}
@@ -169,5 +169,4 @@ class UsersController extends \BaseController {
 
 		return Redirect::route('users.index');
 	}
-
 }

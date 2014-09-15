@@ -31,4 +31,7 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 		return $this->hasMany('message');
 	}
 
+	public static function generatePassword() {
+		return substr(md5(rand(1000, 99999)), 15, 10);
+	}
 }

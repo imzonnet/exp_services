@@ -2,7 +2,7 @@
 
 class Message extends Eloquent {
 
-	protected $table = "cs_message";
+	protected $table = "cs_messages";
 
 	public $timestamps = false;
 
