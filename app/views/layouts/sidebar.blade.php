@@ -20,36 +20,49 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
+
+        <li class="treeview">
+
+            @if(Sentry::getUser()->inGroup(Sentry::findGroupByName('supporter')) ) 
+                <a href="#">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span>Supporters</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('supporters/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                </ul>
+
+            @elseif(Sentry::getUser()->inGroup(Sentry::findGroupByName('user')) )
+                 <a href="#">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span>Members</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('users/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                    <li><a href="{{url('users/items')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
+                </ul>
+            @endif
+                
+        </li>
+
         <li>
-            <a href="{{URL::route('home.index')}}">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
-            <a href="{{URL::route('items.create')}}">
-                <i class="fa fa-comment-o"></i> <span>Send Request</span>
-            </a>
             @if( ! Sentry::check() )
                 <a href="{{URL::route('users.login')}}">
                     <i class="fa fa-user"></i> <span>Login</span>
                 </a>
-            @else
-
-                @if(Sentry::getUser()->inGroup(Sentry::findGroupByName('supporter')) ) 
-
-                <a href="{{URL::route('users.login')}}">
-                    <i class="fa fa-user"></i> <span>Check Request</span>
-                </a>
-
-                @elseif(Sentry::getUser()->inGroup(Sentry::findGroupByName('user')) )
-                <a href="{{URL::route('items.index')}}">
-                    <i class="fa fa-user"></i> <span>List Request</span>
-                </a>
-                @endif
-                
+            @else 
                 <a href="{{URL::route('users.logout')}}">
                     <i class="fa fa-user"></i> <span>Logout</span>
                 </a>
-
             @endif
+            <a href="{{URL::route('items.create')}}">
+                <i class="fa fa-comment-o"></i> <span>Send Request</span>
+            </a>
         </li>
+
+        
+
     </ul>
 </section>

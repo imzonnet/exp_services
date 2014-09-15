@@ -1,4 +1,4 @@
-@extends('users.index')
+@extends('layouts.layout')
 
 @section('content-title')
 Send Request

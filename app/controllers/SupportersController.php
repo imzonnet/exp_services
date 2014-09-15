@@ -2,105 +2,67 @@
 
 class SupportersController extends \BaseController {
 
+	protected $users;
+
+	public function __construct() {
+		if(Sentry::check())
+			$this->user = Sentry::getUser();
+	}
 	/**
 	 * Display a listing of supporters
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
-		
-		return View::make('supporters.index');
+		$items = Item::orderBy('id', 'desc')->get();
+		return View::make('supporters.index', compact('items'));
 	}
 
 	/**
-	 * Show the form for creating a new supporter
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('supporters.create');
+	* Send request
+	*/
+	public function getSend($id) {
+		$item = Item::find($id);
+		$status = Status::getList();
+		return View::make('supporters.send', compact('item', 'status'));	
 	}
-
 	/**
-	 * Store a newly created supporter in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Supporter::$rules);
+	* Send request
+	*/
+	public function postSend($id) {
+		//validate the input
+		$rules = array(
+			'comments' => 'required|min:10',
+			'status_id' => 'required|numeric',
+		);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::back()->withErrors($validator)->withInput();	
+		}
+	    //insert request
+	    $itemData = Input::except('_token');
+	    $itemData['item_id'] = $id;
+	    $itemData['user_id'] = $this->user->id;
+	    $itemData['submit_date'] = new Datetime;
+	    if(!is_null(Input::file('attachment'))) {
+	    	$ext = array('application/pdf','application/msword','application/vnd.ms-excel','text/plain');
+			if(in_array(Input::file('attachment')->getMimeType(), $ext)) {
+				$fileName =  time().Input::file('attachment')->getClientOriginalName();
+				$destinationPath = 'public/upload';
+				Input::file('attachment')->move($destinationPath, $fileName);
+				$attach_path = $destinationPath . '/' . $fileName;
+			}
+		}
+		if(isset($attach_path)) {
+			$itemData['attachment'] = $attach_path;
 		}
 
-		Supporter::create($data);
+		$item = Message::create($itemData);
 
-		return Redirect::route('supporters.index');
+		return Redirect::action('SupportersController@getIndex')->with('message', 'Your request had been submited!');
 	}
-
-	/**
-	 * Display the specified supporter.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$supporter = Supporter::findOrFail($id);
-
-		return View::make('supporters.show', compact('supporter'));
-	}
-
-	/**
-	 * Show the form for editing the specified supporter.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$supporter = Supporter::find($id);
-
-		return View::make('supporters.edit', compact('supporter'));
-	}
-
-	/**
-	 * Update the specified supporter in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$supporter = Supporter::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Supporter::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$supporter->update($data);
-
-		return Redirect::route('supporters.index');
-	}
-
-	/**
-	 * Remove the specified supporter from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Supporter::destroy($id);
-
-		return Redirect::route('supporters.index');
-	}
-
+	
 }

@@ -27,9 +27,13 @@ Route::group(['before' => 'sentry'], function(){
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
 });
 
-Route::group(['before' => 'sentry|inGroup:user'], function(){
-	Route::controller('users', 'UsersController');
-	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]');
+Route::group(['before' => 'sentry|inGroup:user', 'prefix' => 'users'], function(){
+	//Route::controller('users', 'UsersController');
+	Route::get('index', ['as' => 'users.index', 'uses' => 'UsersController@getIndex']);
+	
+	Route::get('items', ['uses' => 'UsersController@getItems']);
+	Route::get('items/index', ['as' => 'items.index', 'uses' => 'UsersController@getItems']);
+	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'UsersController@getItemsShow'])->where('id','[0-9]+');
 });
 
 Route::group(array("before"=>"sentry|inGroup:supporter"), function(){

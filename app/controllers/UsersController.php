@@ -2,12 +2,17 @@
 
 class UsersController extends \BaseController {
 
+	protected $user;
+
+	public function __construct() {
+		$this->user = Sentry::getUser();
+	}
 	/**
 	 * Display a listing of users
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
 		$users = Sentry::getUser();
 		return View::make('users.index');
@@ -80,93 +85,25 @@ class UsersController extends \BaseController {
 		Sentry::logout();
 		return Redirect::route('home.index');
 	}
+
 	/**
-	 * Show the form for creating a new user
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('users.create');
+	* View list items
+	*/
+	public function getItems() {
+		$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->get();
+		return View::make('items.index', compact('items'));
 	}
-
+	
 	/**
-	 * Store a newly created user in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), User::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
+	* Show item detail
+	*/
+	public function getItemsShow($id) {
+		$item = Item::find($id);
+		if($this->user->id != $item->user_id) {
+			return Redirect::route('users.index');
 		}
-
-		User::create($data);
-
-		return Redirect::route('users.index');
+		$messages = $item->message;
+		return View::make('items.show', compact('item','messages'));
 	}
 
-	/**
-	 * Display the specified user.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$user = User::findOrFail($id);
-
-		return View::make('users.show', compact('user'));
-	}
-
-	/**
-	 * Show the form for editing the specified user.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$user = User::find($id);
-
-		return View::make('users.edit', compact('user'));
-	}
-
-	/**
-	 * Update the specified user in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$user = User::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), User::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$user->update($data);
-
-		return Redirect::route('users.index');
-	}
-
-	/**
-	 * Remove the specified user from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		User::destroy($id);
-
-		return Redirect::route('users.index');
-	}
 }
