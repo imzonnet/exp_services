@@ -12,7 +12,7 @@ class UsersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
+	public function index()
 	{
 		$users = Sentry::getUser();
 		return View::make('users.index');
@@ -86,5 +86,73 @@ class UsersController extends \BaseController {
 		return Redirect::route('home.index');
 	}
 
-	
+	/*
+	* Show profile users
+	*/
+	public function show($id) {
+		if($this->user->id != $id) {
+			return App::abort(404, 'Unauthorized action.');
+		}
+		$user = $this->user;
+		return View::make('users.show', compact('user'));
+	}
+	/**
+	 * Show the form for editing the specified user.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		if($this->user->id != $id) {
+			return App::abort(404, 'Unauthorized action.');
+		}
+		$user = User::find($id);
+
+		return View::make('users.edit', compact('user'));
+	}
+
+	/**
+	 * Update the specified home in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		if($this->user->id != $id) {
+			return App::abort(404, 'Unauthorized action.');
+		}
+		$user = User::findOrFail($id);
+		$rules = array(
+			'first_name' => 'required',
+			'last_name' => 'required',
+			'phone' => 'numeric'
+		);
+
+		$validator = Validator::make($data = Input::all(), $rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+		if( !is_null(Input::file('avatar')) ) {
+	    	$ext = array('image/png', 'image/jpeg');
+			if(in_array(Input::file('avatar')->getMimeType(), $ext)) {
+				$fileName =  time().Input::file('avatar')->getClientOriginalName();
+				$destinationPath = 'public/upload/profile';
+				Input::file('avatar')->move($destinationPath, $fileName);
+				$avatar_path = $destinationPath . '/' . $fileName;
+			}
+		}
+		if(isset($avatar_path)) {
+			$data['avatar'] = $avatar_path;
+		}
+		
+		$user->update($data);
+
+		return Redirect::route('users.show',$user->id)->with('message','Your profile had updated!');
+	}
+
+
 }

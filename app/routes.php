@@ -26,6 +26,7 @@ Route::post('/items/store', ['as' => 'items.store', 'uses'=>'ItemsController@sto
 Route::group(['before' => 'sentry'], function(){
 
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
+	Route::resource('users', 'UsersController');
 
 	Route::get('items/index', ['as' => 'items.list', 'uses' => 'ItemsController@index']);
 	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]+');
@@ -34,9 +35,6 @@ Route::group(['before' => 'sentry'], function(){
 
 });
 
-Route::group(['before' => 'sentry|inGroup:user', 'prefix' => 'users'], function(){
-	Route::get('index', ['as' => 'users.index', 'uses' => 'UsersController@getIndex']);
-});
 
 Route::group(array("before"=>"sentry|inGroup:supporter", 'prefix' => 'supporters'), function(){
 	Route::get('index', ['as' => 'supporters.index', 'uses' => 'SupportersController@getIndex']);

@@ -53,7 +53,7 @@ class ItemsController extends \BaseController {
 		if(! Sentry::check() ) {
 			$rules = array(
 				'title' => 'required',
-				'first_name' => 'required|min:3',
+				'first_name' => 'required',
 				'last_name' => 'required',
 			  	'email' => 'required|email',
 				'service_type_id' =>  'required|numeric',

@@ -6,7 +6,7 @@ Send Request
 
 @section('content')
 
-<div class="form-message controller">
+<div class="form-message col-md-8 col-md-offset-2">
 	
 	{{Form::open(array('route' => 'items.store', 'files' => true))}}
 	@if(!Sentry::check())

@@ -3,7 +3,7 @@
     <div class="user-panel">
     <?php if(Sentry::check()) $user = Sentry::getUser(); ?>
         <div class="pull-left image">
-            <img src="{{isset($user) && !empty($user->avatar) ? $user->avatar : Asset('public/img/avatar.png')}}" class="img-circle" alt="User Image" />
+            <img src="{{isset($user) && !empty($user->avatar) ? Asset($user->avatar) : Asset('public/img/avatar.png')}}" class="img-circle" alt="Avatar" />
         </div>
         <div class="pull-left info">
             <p>Hello, {{ isset($user) ? $user->first_name .' '. $user->last_name : "Guest"}}</p>
@@ -22,32 +22,32 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         @if( isset($user) )
-        <li class="treeview">
-    
             @if( $user->inGroup(Sentry::findGroupByName('supporter')) ) 
+            <li class="treeview active">
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
                     <span>Supporters</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('supporters/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                    <li><a href="{{URL::route('supporters.index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
                     <li><a href="{{URL::route('items.list')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
                 </ul>
-
+            </li>
             @elseif( $user->inGroup(Sentry::findGroupByName('user')) )
+            <li class="treeview active">
                  <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
                     <span>Members</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('users/index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                    <li><a href="{{URL::route('users.index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+                    <li><a href="{{URL::route('users.show', $user->id)}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Profile</a></li>
                     <li><a href="{{URL::route('items.list')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
                 </ul>
+            </li>
             @endif
-                
-        </li>
         @endif
         
         <li>

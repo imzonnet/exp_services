@@ -47,6 +47,11 @@
                 </section>
                 @if( $errors->has() )
                 <section id="messages" class="container">
+                    @if(Session::has('message')) 
+                    <div class="alert alert-success">
+                        {{Session::get('message')}}
+                    </div>
+                    @endif 
                     <div class="alert alert-danger">
                         <button data-dismiss="alert" class="close" type="button">×</button>
                         <ul>
