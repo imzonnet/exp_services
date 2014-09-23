@@ -45,23 +45,25 @@
                     <h1>@yield('content-title','Blank page<small>it all starts here</small>')</h1>
                     @yield('breadcrumb')
                 </section>
-                @if( $errors->has() )
                 <section id="messages" class="container">
                     @if(Session::has('message')) 
-                    <div class="alert alert-success">
-                        {{Session::get('message')}}
-                    </div>
+                        <div class="alert alert-success">
+                            {{Session::get('message')}}
+                        </div>
                     @endif 
-                    <div class="alert alert-danger">
-                        <button data-dismiss="alert" class="close" type="button">×</button>
-                        <ul>
-                            @foreach( $errors->all() as $error )
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </section>
-                @endif
+                    
+                    @if( $errors->has() )
+                        
+                        <div class="alert alert-danger">
+                            <button data-dismiss="alert" class="close" type="button">×</button>
+                            <ul>
+                                @foreach( $errors->all() as $error )
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </section>
+                    @endif
                 <!-- Main content -->
                 <section class="content">
                 @yield('content')

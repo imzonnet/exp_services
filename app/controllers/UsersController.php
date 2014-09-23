@@ -50,11 +50,7 @@ class UsersController extends \BaseController {
 			);
 			$user = Sentry::authenticate($data, false);
 			//check group and redirect to group page
-			if( $user->inGroup(Sentry::findGroupByName('supporter')) ) {
-				return Redirect::action('SupportersController@getIndex');
-			} else if( $user->inGroup(Sentry::findGroupByName('user')) ){
-				return Redirect::action('UsersController@getIndex');
-			}
+				return Redirect::route('users.index');
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
         {
@@ -120,7 +116,7 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		if($this->user->id != $id) {
+		if( $this->user->id != $id ) {
 			return App::abort(404, 'Unauthorized action.');
 		}
 		$user = User::findOrFail($id);
@@ -129,11 +125,9 @@ class UsersController extends \BaseController {
 			'last_name' => 'required',
 			'phone' => 'numeric'
 		);
+		$validator = Validator::make($data = Input::except(array('old_password','password','password_confirmation')), $rules);
 
-		$validator = Validator::make($data = Input::all(), $rules);
-
-		if ($validator->fails())
-		{
+		if ( $validator->fails() ) {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 		if( !is_null(Input::file('avatar')) ) {
@@ -145,10 +139,23 @@ class UsersController extends \BaseController {
 				$avatar_path = $destinationPath . '/' . $fileName;
 			}
 		}
-		if(isset($avatar_path)) {
+		if( isset($avatar_path) ) {
 			$data['avatar'] = $avatar_path;
 		}
-		
+		if( Input::has('old_password') ) {
+			$pwrules = array(
+				'password' => 'required|confirmed'
+			);
+			if( $this->user->checkPassword(Input::get('old_password'))) {
+				$pwvalidate = Validator::make(Input::only('password', 'password_confirmation'), $pwrules);
+				if( $pwvalidate->fails() )  {
+					return Redirect::back()->withErrors($pwvalidate)->withInput();
+				}
+				$data['password'] = Input::get('password');
+			} else {
+				return Redirect::back()->withErrors("Old Password don't match")->withInput();
+			}
+		}
 		$user->update($data);
 
 		return Redirect::route('users.show',$user->id)->with('message','Your profile had updated!');

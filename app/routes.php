@@ -36,10 +36,6 @@ Route::group(['before' => 'sentry'], function(){
 });
 
 
-Route::group(array("before"=>"sentry|inGroup:supporter", 'prefix' => 'supporters'), function(){
-	Route::get('index', ['as' => 'supporters.index', 'uses' => 'SupportersController@getIndex']);
-});
-
 
 /*
 Event::listen('illuminate.query', function($query)
