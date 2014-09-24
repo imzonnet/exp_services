@@ -1,0 +1,1 @@
+D:\XServer\htdocs\exp_services\app/views/powerfuls/show.blade.php

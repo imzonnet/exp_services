@@ -2,6 +2,11 @@
 
 class Service extends Eloquent {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = "cs_service_types";
 
 	public $timestamps = false;

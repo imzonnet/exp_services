@@ -2,6 +2,11 @@
 
 class Item extends Eloquent {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = "cs_items";
 
    	protected $fillable = array('id', 'title', 'requirement', 'link', 'info', 'budget_id', 'deliver_in', 'service_type_id', 'user_id', 'attachment' );

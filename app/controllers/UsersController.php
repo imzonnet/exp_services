@@ -60,7 +60,7 @@ class UsersController extends \BaseController {
         {
             return Redirect::route('users.login')->withInput(Input::except('password'))->withErrors("Password required");
         }
-        catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
+        catch 	(Cartalyst\Sentry\Users\WrongPasswordException $e)
         {
             return Redirect::route('users.login')->withInput(Input::except('password'))->withErrors("Wrong Password");
         }
