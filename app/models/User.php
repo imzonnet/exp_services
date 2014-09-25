@@ -37,7 +37,17 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 		return $this->hasMany('message');
 	}
 
-	public static function generatePassword() {
+	/**
+	* Relationship with table t_powerful
+	*/
+	public function order() {
+		return $this->hasMany('order');
+	}
+	/**
+	* Generate random password
+	* @return stirng
+	*/
+	public function scopeGeneratePassword() {
 		return substr(md5(rand(1000, 99999)), 15, 10);
 	}
 }

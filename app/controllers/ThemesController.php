@@ -9,7 +9,7 @@ class ThemesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$themes = Theme::all();
+		$themes = Theme::orderBy('id', 'desc')->paginate(10);
 
 		return View::make('themes.index', compact('themes'));
 	}

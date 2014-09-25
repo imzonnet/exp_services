@@ -13,6 +13,7 @@
         {{HTML::style("public/backend/css/ionicons.min.css")}}
         <!-- Theme style -->
         {{HTML::style("public/backend/css/AdminLTE.css")}}
+        {{HTML::style("public/backend/css/custom.css")}}
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,8 +80,6 @@
         {{HTML::script("public/backend/js/bootstrap.min.js")}}
         <!-- AdminLTE App -->
         {{HTML::script("public/backend/js/AdminLTE/app.js")}}
-        <!-- AdminLTE for demo purposes -->
-        {{HTML::script("public/backend/js/AdminLTE/demo.js")}}
         @show
     </body>
 </html>

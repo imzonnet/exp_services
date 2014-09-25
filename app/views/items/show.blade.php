@@ -48,7 +48,7 @@
 		@foreach($messages as $message)
 	 	<div class="item">
 	 		<?php $user = User::find($message->user_id); ?>
-	        <img class="online" alt="user image" src="{{!empty($user->avatar) ? $user->avatar : Asset('public/img/avatar.png')}}">
+	        <img class="online" alt="user image" src="{{Asset($user->avatar)}}">
 	        <div class="message">
 	            <a class="name" href="#">
 	                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{$message->submit_date}}</small>

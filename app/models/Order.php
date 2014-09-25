@@ -14,4 +14,10 @@ class Order extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [];
 
+	/**
+	* Relationship with table users
+	*/
+	public function user() {
+		return $this->belongsTo('user');
+	}
 }

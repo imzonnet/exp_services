@@ -13,14 +13,23 @@ class Message extends Eloquent {
 
 	protected $fillable = array('comments','attachment','item_id', 'user_id', 'status_id', 'submit_date');
 
+	/**
+	* Relationship with table users
+	*/
 	public function user() {
 		return $this->belongsTo('user');
 	}
 	
+	/**
+	* Relationship with table cs_items
+	*/
 	public function item() {
 		return $this->belongsTo('item');
 	}
 
+	/**
+	* Relationship with table cs_status
+	*/
 	public function status() {
 		return $this->belongsTo('status');
 	}

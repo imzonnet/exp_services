@@ -38,8 +38,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('users.show', $user->id)}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> All themes</a></li>
-                    <li><a href="{{URL::route('users.show', $user->id)}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Add new</a></li>
+                    <li><a href="{{URL::route('admin.themes.index', $user->id)}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> All themes</a></li>
+                    <li><a href="{{URL::route('admin.themes.create', $user->id)}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Add new</a></li>
                 </ul>
             </li>
 

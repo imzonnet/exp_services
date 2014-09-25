@@ -11,11 +11,14 @@ class Service extends Eloquent {
 
 	public $timestamps = false;
 
+	/**
+	* Relationship with table cs_items
+	*/
 	public function item() {
 		return $this->hasMany('item');
 	}
 
-	public static function getList() {
+	public function scopeGetList() {
 		$services = Service::all();
 		$data = array();
 		foreach ($services as $service) {

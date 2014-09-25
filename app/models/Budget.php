@@ -11,11 +11,14 @@ class Budget extends Eloquent {
 
 	public $timestamps = false;
 
+	/**
+	* Relationship with table t_items
+	*/
 	public function item() {
 		return $this->hasMany('item');
 	}
 
-	public static function getList() {
+	public function scopeGetList() {
 		$budgets = Budget::all();
 		$data = array();
 		foreach ($budgets as $budget) {

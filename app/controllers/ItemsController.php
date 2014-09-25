@@ -108,7 +108,7 @@ class ItemsController extends \BaseController {
 
 				$item = Item::create($itemData);
 
-				return Redirect::route('home.index')->with('message', 'Your request had been submited! Our has create your account. Please check your email and login with username, password for check your request.' . 'Email:'. $user->email . '/'.$password);
+				return Redirect::route('home.index')->with('message', 'Your request had been submited! Our has create your account.<br />Please check your email and login with username, password for check your request.<br />' . 'Email:'. $user->email . '/'.$password);
 			    /**send mail **/
 			    /*
     			Mail::send('emails.welcome', array('key' => 'value'), function($message)

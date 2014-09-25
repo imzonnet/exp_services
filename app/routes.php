@@ -37,14 +37,16 @@ Route::group(['before' => 'sentry'], function(){
 
 Route::group(['before' => 'sentry|inGroup:administer', 'prefix' => 'admin'], function() {
 
-	Route::resource('powerful', 'PowerfulController', array('except' => 'show'));
-	Route::resource('categories', 'CategoriesController', array('except' => 'show'));
+	Route::resource('powerful', 'PowerfulController', array('except' => array('create', 'show')));
+	Route::resource('categories', 'CategoriesController', array('except' => array('create', 'show')));
 	Route::resource('themes', 'ThemesController', array('except' => 'show'));
 
 });
 
-/*
+/**
 Event::listen('illuminate.query', function($query)
 {
     var_dump($query);
 });
+**/
+

@@ -16,7 +16,7 @@ class Users extends Migration {
 			$table->string('address', 45);
 			$table->string('phone', 20)->nullable();
 			$table->string('skype', 45)->nullable();
-			$table->string('avatar', 45)->nullable();
+			$table->string('avatar', 45)->default('public/images/avatar.png');
 			$table->string('sex', 10)->nullable();
 			$table->text('profile')->nullable();
 		});

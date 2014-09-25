@@ -10,7 +10,7 @@ class Theme extends \Eloquent {
 	protected $table = 't_themes';
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['name', 'description', 'thumbnail', 'features', 'powerful_id', 'version', 'price', 'category_id'];
 
 	/**
 	* Relationship with table t_theme_images
