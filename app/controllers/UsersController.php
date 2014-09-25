@@ -135,7 +135,7 @@ class UsersController extends \BaseController {
 	    	$ext = array('image/png', 'image/jpeg');
 			if(in_array(Input::file('avatar')->getMimeType(), $ext)) {
 				$fileName =  time().Input::file('avatar')->getClientOriginalName();
-				$destinationPath = 'public/upload/profile';
+				$destinationPath = 'public/uploads/profile';
 				Input::file('avatar')->move($destinationPath, $fileName);
 				$avatar_path = $destinationPath . '/' . $fileName;
 			}

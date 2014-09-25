@@ -22,7 +22,7 @@ class ThemesController extends \BaseController {
 	public function create()
 	{
 		$data['category'] = Category::getList();
-		//$data['powerful'] = Powerful::getList();
+		$data['powerful'] = Powerful::getList();
 
 		return View::make('themes.create', $data);
 	}
@@ -39,20 +39,33 @@ class ThemesController extends \BaseController {
 			'description' => 'required',
 			'thumbnail' => 'required|image',
 			'powerful_id' => 'required',
-			'category' => 'required',
+			'category_id' => 'required',
 		);
 		$validator = Validator::make($data = Input::all(), $rules);
-
+		
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+		/**
+		* Convert list id powerful to json
+		*/
+		$data['powerful_id'] = json_encode($data['powerful_id']);
 
-		$images = Input::file('images');
+		/**
+		* Upload theme thunbnail
+		*/
+		$tb_path = "public/uploads/themes";
+		$tb_name = md5(time() . Input::file('thumbnail')->getClientOriginalName()) . '.' . Input::file('thumbnail')->getClientOriginalExtension();
+		//Input::file('thumbnail')->move($folder, $name);
+		$tb_path = $tb_path . '/' . $tb_name;
+		$data['thumbnail'] = $tb_path;
 
-		//Theme::create($data);
+		//$images = Input::file('images');
+		
+		Theme::create($data);
 
-		//return Redirect::route('themes.index');
+		return Redirect::route('admin.themes.index')->with('message', 'Item had created!');
 	}
 
 	/**
@@ -116,4 +129,12 @@ class ThemesController extends \BaseController {
 		return Redirect::route('themes.index');
 	}
 
+	/**
+	* Ajax upload images
+	*/
+	public function ajaxImages() {
+		
+		echo "true";
+		var_dump(Input::all());
+	}
 }

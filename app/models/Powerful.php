@@ -20,4 +20,17 @@ class Powerful extends \Eloquent {
 	public function theme() {
 		return $this->belongsTo('theme');
 	}
+
+	/**
+	* Get list categories
+	* @return array()
+	*/
+	public function scopeGetList() {
+		$data = array();
+		$items = Powerful::all();
+		foreach ($items as $item) {
+			$data[$item->id] = $item->name;
+		}
+		return $data;
+	}
 }

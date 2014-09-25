@@ -23,6 +23,8 @@ Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@d
 Route::get('/items/create', ['as' => 'items.create', 'uses'=>'ItemsController@create']);
 Route::post('/items/store', ['as' => 'items.store', 'uses'=>'ItemsController@store']);
 
+
+
 Route::group(['before' => 'sentry'], function(){
 
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
@@ -32,7 +34,6 @@ Route::group(['before' => 'sentry'], function(){
 	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]+');
 	
 	Route::post('items/{id}', 'ItemsController@postMessages');
-
 });
 
 Route::group(['before' => 'sentry|inGroup:administer', 'prefix' => 'admin'], function() {
@@ -40,7 +41,8 @@ Route::group(['before' => 'sentry|inGroup:administer', 'prefix' => 'admin'], fun
 	Route::resource('powerful', 'PowerfulController', array('except' => array('create', 'show')));
 	Route::resource('categories', 'CategoriesController', array('except' => array('create', 'show')));
 	Route::resource('themes', 'ThemesController', array('except' => 'show'));
-
+	Route::post('/themes/ajaxImages', 'ThemesController@ajaxImages');
+	
 });
 
 /**

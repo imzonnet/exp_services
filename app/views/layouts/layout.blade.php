@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <title>Exp Control Panel | @yield('title', "Dashboard" )</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+        <!-- jQuery 2.1.1 -->
+        {{HTML::script("http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")}}
         @section('style')
         <!-- bootstrap 3.0.2 -->
         {{HTML::style("public/backend/css/bootstrap.min.css")}}
@@ -75,8 +78,6 @@
         </div><!-- ./wrapper -->
 
         @section('javascript')
-        <!-- jQuery 2.0.2 -->
-        {{HTML::script("http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js")}}
         <!-- Bootstrap -->
         {{HTML::script("public/backend/js/bootstrap.min.js")}}
         <!-- AdminLTE App -->

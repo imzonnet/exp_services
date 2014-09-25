@@ -62,6 +62,7 @@ class ItemsController extends \BaseController {
 				'info' => 'required',
 				'budget_id' =>  'required',
 				'deliver_in' => 'required|numeric',
+				'attachment' => 'mines:pdf,doc,docx,txt'
 			);
 			$validator = Validator::make(Input::all(), $rules);
 			//validate the input
@@ -94,13 +95,10 @@ class ItemsController extends \BaseController {
 			    $itemData = Input::except('_token', 'first_name', 'last_name', 'email');
 			    $itemData['user_id'] = $user->id;
 			    if(!is_null(Input::file('attachment'))) {
-			    	$ext = array('application/pdf','application/msword','application/vnd.ms-excel','text/plain');
-					if(in_array(Input::file('attachment')->getMimeType(), $ext)) {
-						$fileName =  time().Input::file('attachment')->getClientOriginalName();
-						$destinationPath = 'public/upload';
-						Input::file('attachment')->move($destinationPath, $fileName);
-						$attach_path = $destinationPath . '/' . $fileName;
-					}
+					$fileName =  time().Input::file('attachment')->getClientOriginalName();
+					$destinationPath = 'public/uploads/items';
+					Input::file('attachment')->move($destinationPath, $fileName);
+					$attach_path = $destinationPath . '/' . $fileName;
 				}
 				if(isset($attach_path)) {
 					$itemData['attachment'] = $attach_path;
@@ -146,6 +144,7 @@ class ItemsController extends \BaseController {
 				'info' => 'required',
 				'budget_id' =>  'required',
 				'deliver_in' => 'required|numeric',
+				'attachment' => 'mines:pdf,doc,docx,txt'
 			);
 
 			$validator = Validator::make(Input::all(), $rules);
@@ -158,13 +157,10 @@ class ItemsController extends \BaseController {
 		    $itemData['user_id'] = $user->id;
 
 		    if(!is_null(Input::file('attachment'))) {
-		    	$ext = array('application/pdf','application/msword','application/vnd.ms-excel','text/plain');
-				if(in_array(Input::file('attachment')->getMimeType(), $ext)) {
-					$fileName =  time().Input::file('attachment')->getClientOriginalName();
-					$destinationPath = 'public/upload';
-					Input::file('attachment')->move($destinationPath, $fileName);
-					$attach_path = $destinationPath . '/' . $fileName;
-				}
+				$fileName =  time().Input::file('attachment')->getClientOriginalName();
+				$destinationPath = 'public/uploads';
+				Input::file('attachment')->move($destinationPath, $fileName);
+				$attach_path = $destinationPath . '/' . $fileName;
 			}
 			if(isset($attach_path)) {
 				$itemData['attachment'] = $attach_path;
@@ -205,6 +201,7 @@ class ItemsController extends \BaseController {
 		$rules = array(
 			'comments' => 'required|min:10',
 			'status_id' => 'required|numeric',
+				'attachment' => 'mines:pdf,doc,docx,txt'
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -218,13 +215,10 @@ class ItemsController extends \BaseController {
 	    $itemData['user_id'] = $this->user->id;
 	    $itemData['submit_date'] = new Datetime;
 	    if(!is_null(Input::file('attachment'))) {
-	    	$ext = array('application/pdf','application/msword','application/vnd.ms-excel','text/plain');
-			if(in_array(Input::file('attachment')->getMimeType(), $ext)) {
-				$fileName =  time().Input::file('attachment')->getClientOriginalName();
-				$destinationPath = 'public/upload';
-				Input::file('attachment')->move($destinationPath, $fileName);
-				$attach_path = $destinationPath . '/' . $fileName;
-			}
+			$fileName =  time().Input::file('attachment')->getClientOriginalName();
+			$destinationPath = 'public/upload';
+			Input::file('attachment')->move($destinationPath, $fileName);
+			$attach_path = $destinationPath . '/' . $fileName;
 		}
 		if(isset($attach_path)) {
 			$itemData['attachment'] = $attach_path;
