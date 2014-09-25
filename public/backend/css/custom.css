@@ -6,3 +6,29 @@
 	max-width: 50px;
 	max-height: 60px;
 }
+
+.theme-thumbnail {
+    width: 100px;
+    height: 100px;
+}
+/**
+* Upload popup
+*/
+.image-popup {
+    width: 800px;
+    height: 400px;
+    margin-left: -400px;
+    position: fixed;
+    left: 50%;
+    top: 50px;
+}
+.image-popup .box{
+	height: 400px;
+}
+.image-popup .box .box-body{
+	overflow: auto;
+}
+
+#grid-view .grid-item{
+	margin-bottom: 30px;
+}

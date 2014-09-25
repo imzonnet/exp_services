@@ -3,6 +3,11 @@
 class ThemesController extends \BaseController {
 
 	/**
+	* path folder upload file
+	*/
+	private $path = "public/uploads/themes";
+
+	/**
 	 * Display a listing of themes
 	 *
 	 * @return Response
@@ -41,7 +46,7 @@ class ThemesController extends \BaseController {
 			'powerful_id' => 'required',
 			'category_id' => 'required',
 		);
-		$validator = Validator::make($data = Input::all(), $rules);
+		$validator = Validator::make($data = Input::except('images'), $rules);
 		
 		if ($validator->fails())
 		{
@@ -55,16 +60,24 @@ class ThemesController extends \BaseController {
 		/**
 		* Upload theme thunbnail
 		*/
-		$tb_path = "public/uploads/themes";
 		$tb_name = md5(time() . Input::file('thumbnail')->getClientOriginalName()) . '.' . Input::file('thumbnail')->getClientOriginalExtension();
-		//Input::file('thumbnail')->move($folder, $name);
-		$tb_path = $tb_path . '/' . $tb_name;
+		Input::file('thumbnail')->move($this->path, $tb_name);
+		$tb_path = $this->path . '/' . $tb_name;
 		$data['thumbnail'] = $tb_path;
 
-		//$images = Input::file('images');
-		
-		Theme::create($data);
-
+		//create new theme
+		$theme = Theme::create($data);
+		//create theme images
+		if( Input::has('theme_images') ) {
+			$theme_images = Input::get('theme_images');
+			foreach($theme_images as $image) {
+				$idata = array(
+					'image' => $image,
+					'theme_id' => $theme->id
+				);
+				ThemeImage::create($idata);
+			}
+		}
 		return Redirect::route('admin.themes.index')->with('message', 'Item had created!');
 	}
 
@@ -133,8 +146,35 @@ class ThemesController extends \BaseController {
 	* Ajax upload images
 	*/
 	public function ajaxImages() {
-		
-		echo "true";
-		var_dump(Input::all());
+		if( Request::ajax() ) {
+
+			$rules = ['images[]' => 'image'];
+
+			$validator = Validator::make($data = Input::all(), $rules);
+			
+			if( $validator->fails() || is_null(Input::file('images')) ) {
+				return Response::json(array('success' => false, 'data' => 'The file must be an image.'));
+			}
+			$images = Input::file('images');
+			$dataImg = array();
+			foreach ($images as $image) {
+				$name = md5( time() . $image->getClientOriginalName() ) . '.' . $image->getClientOriginalExtension();
+				$image->move($this->path, $name);
+				$dataImg[] = $this->path . '/' . $name;
+			}
+			return Response::json(array('success' => true, 'data' => $dataImg));
+		}
+	}
+	/**
+	* Ajax remove images
+	*/
+	public function ajaxRemoveImages() {
+		$path = Input::get('path');
+		if(file_exists($path)) {
+			unlink($path);
+			return Response::json(array('success' => true));
+		} else {
+			return Response::json(array('success' => false));
+		}
 	}
 }

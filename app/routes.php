@@ -42,6 +42,7 @@ Route::group(['before' => 'sentry|inGroup:administer', 'prefix' => 'admin'], fun
 	Route::resource('categories', 'CategoriesController', array('except' => array('create', 'show')));
 	Route::resource('themes', 'ThemesController', array('except' => 'show'));
 	Route::post('/themes/ajaxImages', 'ThemesController@ajaxImages');
+	Route::post('/themes/ajaxRemoveImages', 'ThemesController@ajaxRemoveImages');
 	
 });
 
