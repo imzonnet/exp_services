@@ -9,7 +9,7 @@ class PowerfulController extends \BaseController {
 	 */
 	public function index()
 	{
-		$powerful = Powerful::all();
+		$powerful = Powerful::orderBy('id','desc')->paginate(10);
 
 		return View::make('powerful.index', compact('powerful'));
 	}
@@ -31,29 +31,31 @@ class PowerfulController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Powerful::$rules);
+		$rules = array(
+			'name' => 'required',
+			'icon' => 'image'
+		);
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+		//upload powerful icon
+		if( !is_null(Input::file('icon')) ) {
+			$name = md5(time() . Input::file('icon')->getClientOriginalName()) . '.' . Input::file('icon')->getClientOriginalExtension();;
+			$folder = "public/upload/powerful/";
+			Input::file('icon')->move($folder, $name);
+			$path = $folder . $name;
+		}
+		if( isset($path) )
+			$data['icon'] = $path;
+		
+		//save to database
 		Powerful::create($data);
 
-		return Redirect::route('powerful.index');
-	}
-
-	/**
-	 * Display the specified powerful.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$powerful = Powerful::findOrFail($id);
-
-		return View::make('powerful.show', compact('powerful'));
+		return Redirect::route('admin.powerful.index')->with('message', 'Item had created!');
 	}
 
 	/**
@@ -79,16 +81,31 @@ class PowerfulController extends \BaseController {
 	{
 		$powerful = Powerful::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Powerful::$rules);
+		$rules = array(
+			'name' => 'required',
+			'icon' => 'image'
+		);
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+		//upload powerful icon
+		if( !is_null(Input::file('icon')) ) {
+			$name = md5(time() . Input::file('icon')->getClientOriginalName()) . '.' . Input::file('icon')->getClientOriginalExtension();;
+			$folder = "public/upload/powerful/";
+			Input::file('icon')->move($folder, $name);
+			$path = $folder . $name;
+		}
+		if( isset($path) )
+			$data['icon'] = $path;
+		
+
 		$powerful->update($data);
 
-		return Redirect::route('powerful.index');
+		return Redirect::route('admin.powerful.index')->with('message', 'Item had updated!');
 	}
 
 	/**
@@ -101,7 +118,7 @@ class PowerfulController extends \BaseController {
 	{
 		Powerful::destroy($id);
 
-		return Redirect::route('powerful.index');
+		return Redirect::route('admin.powerful.index')->withErrors('Item had deleted!');
 	}
 
 }
