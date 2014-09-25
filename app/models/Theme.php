@@ -9,12 +9,31 @@ class Theme extends \Eloquent {
 	 */
 	protected $table = 't_themes';
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
-
 	// Don't forget to fill this array
 	protected $fillable = [];
 
+	/**
+	* Relationship with table t_theme_images
+	*/
+	public function themeImage() {
+		return $this->hasMany('themeImage');
+	}
+	/**
+	* Relationship with table t_theme_logs
+	*/
+	public function themeLog() {
+		return $this->hasMany('themeLog');
+	}
+	/**
+	* Relationship with table t_powerful
+	*/
+	public function powerful() {
+		return $this->belongsTo('powerful');
+	}
+	/**
+	* Relationship with table t_categories
+	*/
+	public function category() {
+		return $this->belongsTo('category');
+	}
 }

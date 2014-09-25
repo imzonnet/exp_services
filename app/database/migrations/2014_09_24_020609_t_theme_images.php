@@ -15,13 +15,12 @@ class TThemeImages extends Migration {
 		Schema::create('t_theme_images', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 45);
+			$table->string('name', 45)->nullable();
 			$table->string('image', 100);
-			$table->integer('ordering');
-			$table->tinyInteger('state');
+			$table->integer('ordering')->default(0);
+			$table->tinyInteger('state')->default(1);
 			$table->integer('theme_id')->unsigned()->index();
 			$table->foreign('theme_id')->references('id')->on('t_themes')->onDelete('cascade');
-			$table->timestamps();
 		});
 	}
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration {
+class TCategories extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 100);
-			$table->text('description');
+			$table->text('description')->nullable();
 		});
 	}
 

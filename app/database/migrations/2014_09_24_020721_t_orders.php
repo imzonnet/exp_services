@@ -15,7 +15,11 @@ class TOrders extends Migration {
 		Schema::create('t_orders', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->timestamps();
+			$table->integer('user_id')->unsigned()->index();
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->integer('theme_id')->unsigned()->index();
+			$table->foreign('theme_id')->references('id')->on('t_themes')->onDelete('cascade');
+			$table->timestamp('ordered_date');
 		});
 	}
 

@@ -23,10 +23,16 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	/**
+	* Relationship with table cs_items
+	*/
 	public function item() {
 		return $this->hasMany('item');
 	}
 
+	/**
+	* Relationship with table cs_messages
+	*/
 	public function message() {
 		return $this->hasMany('message');
 	}

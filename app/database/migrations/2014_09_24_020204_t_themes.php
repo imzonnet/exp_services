@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateThemesTable extends Migration {
+class TThemes extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,14 +16,14 @@ class CreateThemesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 255);
-			$table->text('description');
+			$table->text('description')->nullable();
 			$table->string('thumbnail', 100);
-			$table->text('features');
+			$table->text('features')->nullable();
 			$table->string('powerful_id',100);
-			$table->string('version',10);
-			$table->decimal('price',10,2);
+			$table->string('version',10)->nullable();
+			$table->decimal('price',10,2)->default(0);
 			$table->integer('category_id')->unsigned()->index();
-			$table->foreign('category_id')->refernces('id')->on('t_categories')->onDelete('cascade');
+			$table->foreign('category_id')->references('id')->on('t_categories')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

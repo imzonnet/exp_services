@@ -9,12 +9,15 @@ class Category extends \Eloquent {
 	 */
 	protected $table = 't_categories';
 	
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+	public $timestamps = false;
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['name', 'description'];
 
+	/**
+	* Relationship with table t_themes
+	*/
+	public function theme() {
+		return $this->belongsTo('theme');
+	}
 }

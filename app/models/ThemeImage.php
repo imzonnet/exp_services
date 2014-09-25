@@ -9,12 +9,16 @@ class ThemeImage extends \Eloquent {
 	 */
 	protected $table = 't_theme_images';
 	
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+	public $timestamps = false;
 
 	// Don't forget to fill this array
 	protected $fillable = [];
+	
+	/**
+	* Relationship with table t_themes
+	*/
+	public function theme() {
+		return $this->belongsTo('theme');
+	}
 
 }

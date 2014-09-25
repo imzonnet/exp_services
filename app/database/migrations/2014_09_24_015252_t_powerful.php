@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePowerfulTable extends Migration {
+class TPowerful extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,8 +16,8 @@ class CreatePowerfulTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 45);
-			$table->string('icon', 100);
-			$table->string('description', 100);
+			$table->string('icon', 100)->nullable();
+			$table->string('description', 100)->nullable();
 		});
 	}
 

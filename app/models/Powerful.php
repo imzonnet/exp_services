@@ -9,12 +9,15 @@ class Powerful extends \Eloquent {
 	 */
 	protected $table = 't_powerful';
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
-
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['name', 'icon', 'description'];
 
+	public $timestamps = false;
+
+	/**
+	* Relationship with table t_themes
+	*/
+	public function theme() {
+		return $this->belongsTo('theme');
+	}
 }
