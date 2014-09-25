@@ -9,7 +9,7 @@ class CategoriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$categories = Category::all();
+		$categories = Category::orderBy('id', 'desc')->paginate('10');
 
 		return View::make('categories.index', compact('categories'));
 	}
@@ -31,7 +31,10 @@ class CategoriesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Category::$rules);
+		$rules = array(
+			'name' => 'required'
+		);
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
@@ -40,7 +43,7 @@ class CategoriesController extends \BaseController {
 
 		Category::create($data);
 
-		return Redirect::route('categories.index');
+		return Redirect::route('admin.categories.index')->with('message', 'Category had created!');
 	}
 
 	/**
@@ -78,8 +81,10 @@ class CategoriesController extends \BaseController {
 	public function update($id)
 	{
 		$category = Category::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Category::$rules);
+		$rules = array(
+			'name' => 'required'
+		);
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
@@ -88,7 +93,7 @@ class CategoriesController extends \BaseController {
 
 		$category->update($data);
 
-		return Redirect::route('categories.index');
+		return Redirect::route('admin.categories.index')->with('message', 'Item had updated!');
 	}
 
 	/**
@@ -101,7 +106,7 @@ class CategoriesController extends \BaseController {
 	{
 		Category::destroy($id);
 
-		return Redirect::route('categories.index');
+		return Redirect::route('admin.categories.index')->withErrors('Item had deleted!');
 	}
 
 }
