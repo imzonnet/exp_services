@@ -21,7 +21,10 @@ class ThemesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('themes.create');
+		$data['category'] = Category::getList();
+		//$data['powerful'] = Powerful::getList();
+
+		return View::make('themes.create', $data);
 	}
 
 	/**
@@ -31,16 +34,25 @@ class ThemesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Theme::$rules);
+		$rules = array(
+			'name' => 'required',
+			'description' => 'required',
+			'thumbnail' => 'required|image',
+			'powerful_id' => 'required',
+			'category' => 'required',
+		);
+		$validator = Validator::make($data = Input::all(), $rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Theme::create($data);
+		$images = Input::file('images');
 
-		return Redirect::route('themes.index');
+		//Theme::create($data);
+
+		//return Redirect::route('themes.index');
 	}
 
 	/**

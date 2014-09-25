@@ -66,7 +66,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('items.list')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
+                    <li><a href="{{URL::route('items.index')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> List items</a></li>
                     <li><a href="{{URL::route('items.create')}}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Send Request</a></li>
                 </ul>
             </li>

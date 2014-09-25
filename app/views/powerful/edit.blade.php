@@ -19,8 +19,8 @@ Powerful Manager
 			<div class="form-group">
 				{{Form::label('icon', 'Icon')}}
 				<div class="clearfix">
-					<div class="file-review pull-left" style="margin-right: 10px;">
-					 {{ HTML::image(asset($powerful->icon), 'Powerful icon') }}
+					<div class="item-icon pull-left" style="margin-right: 10px;">
+					 {{ HTML::image(asset($powerful->icon), 'Powerful icon', ['title' => $powerful->name]) }}
 					</div>
 					<div class="file-form">
 						{{Form::file('icon')}}

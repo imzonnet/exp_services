@@ -5,6 +5,11 @@
 @stop
 
 @section('content')
+
+<ul class="navigation list-inline">
+	<li><a href="{{URL::route('items.index')}}" class="btn btn-info">Back</a></li>
+</ul>
+
 <div class="request-head box box-danger">
 	<div class="box-header">
 	    <i class="fa fa-th"></i>
@@ -52,6 +57,7 @@
 	        <div class="message">
 	            <a class="name" href="#">
 	                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{$message->submit_date}}</small>
+	            	<small style="margin-right: 15px" class="pull-right label label-{{Status::getClass($message->status->name)}}"># {{$message->status->name}}</small>
 	                {{$user->first_name .' '. $user->last_name}}
 	            </a>
 	            {{$message->comments}}
@@ -68,7 +74,7 @@
 
 	    </div><!-- /.item -->
 	    <!-- chat item -->
-	
+		<hr />
 		@endforeach
 	@else 
 		<p>Not found message!</p>

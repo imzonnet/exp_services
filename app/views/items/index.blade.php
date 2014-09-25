@@ -13,6 +13,7 @@ List Messages
 				<th>ID</th>
 				<th>Title</th>
 				<th>Update date</th>
+				<th>Status</th>
 				<th>View</th>
 			</tr>
 			@foreach($items as $item)
@@ -20,7 +21,11 @@ List Messages
 				<td>{{$item->id}}</td>
 				<td>{{$item->title}}</td>
 				<td>{{$item->created_at}}</td>
-				<td>{{link_to_route('items.show', "Messages", array($item->id), array('class' => 'btn btn-info') )}}</td>
+				<td>		
+					<?php $status = $item->message->first()->status->name; ?>
+					<span class="btn btn-{{Status::getClass($status)}}">{{$status}}</span>
+				</td>
+				<td>{{link_to_route('items.show', "Send Message", array($item->id), array('class' => 'btn btn-primary') )}}</td>
 			</tr>
 			@endforeach
 		</table>

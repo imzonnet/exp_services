@@ -28,7 +28,7 @@ Route::group(['before' => 'sentry'], function(){
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
 	Route::resource('users', 'UsersController');
 
-	Route::get('items/index', ['as' => 'items.list', 'uses' => 'ItemsController@index']);
+	Route::get('items/index', ['as' => 'items.index', 'uses' => 'ItemsController@index']);
 	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]+');
 	
 	Route::post('items/{id}', 'ItemsController@postMessages');

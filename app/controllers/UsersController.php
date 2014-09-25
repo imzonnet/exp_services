@@ -123,7 +123,8 @@ class UsersController extends \BaseController {
 		$rules = array(
 			'first_name' => 'required',
 			'last_name' => 'required',
-			'phone' => 'numeric'
+			'phone' => 'numeric',
+			'avatar' => 'image'
 		);
 		$validator = Validator::make($data = Input::except(array('old_password','password','password_confirmation')), $rules);
 

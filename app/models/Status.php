@@ -35,22 +35,24 @@ class Status extends Eloquent {
 	* @var string
 	* @return string
 	*/
-	public function scopeGetClass($status) {
+	public static function getClass($status) {
 		$class = "info";
-		switch (strtolower($status)) {
+		//dd($status);
+		$status = strtolower($status);
+		switch ($status) {
 			case 'waiting':
 				$class = "info";
 				break;
 			case 'pending':
-				$class = "waring";
+				$class = "warning";
 				break;
 			case 'solved':
 				$class = "success";
 				break;
-			
 			default:
 				$class = "info";
 				break;
 		}
+		return $class;
 	}
 }

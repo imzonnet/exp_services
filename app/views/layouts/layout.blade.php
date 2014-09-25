@@ -42,6 +42,7 @@
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
                 <!-- Content Header (Page header) -->
+                
                 <section class="content-header">
                     <h1>@yield('content-title','Blank page <small>it all starts here</small>')</h1>
                     @yield('breadcrumb')

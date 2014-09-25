@@ -5,11 +5,10 @@ Themes Manager
 @stop
 
 @section('content')
-
+<ul class="navigation list-inline">
+	<li><a href="{{URL::route('admin.themes.create')}}" class="btn btn-primary">Add New</a></li>
+</ul>
 <div class="box">
-	<div class="box-header">
-		<h3 class="box-title">Themes</h3>
-	</div>
 	<div class="box-body">
 		<table class="table table-bordered">
 			<tr>

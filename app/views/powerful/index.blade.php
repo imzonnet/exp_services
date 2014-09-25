@@ -48,16 +48,16 @@ Powerful Manager
 				</tr>
 				@foreach($powerful as $item)
 				<tr>
-					<td>{{ HTML::image(asset($item->icon), 'Powerful icon', ['class' => 'item-icon', 'title' => $item->name]) }}</td>
+					<td class="item-icon">{{ HTML::image(asset($item->icon), 'Powerful icon', ['title' => $item->name]) }}</td>
 					<td>{{ $item->name }}</td>
 					<td>{{ $item->description }}</td>
 					<td>
-					<div class="btn-group-vertical">
-					{{ link_to_route('admin.powerful.edit', "Edit", array($item->id), array('class' => 'btn btn-info') ) }}
-					{{ Form::model( $item, array('route' => array('admin.powerful.destroy', $item->id), 'method' => 'delete') ) }}
-						{{ Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("You are about to permanently delete the selected items.\n \'Cancel\' to stop, \'OK\' to delete.")']) }}
-					{{ Form::close() }}
-					</div>
+						<div class="btn-group-vertical">
+						{{ link_to_route('admin.powerful.edit', "Edit", array($item->id), array('class' => 'btn btn-info') ) }}
+						{{ Form::model( $item, array('route' => array('admin.powerful.destroy', $item->id), 'method' => 'delete') ) }}
+							{{ Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("You are about to permanently delete the selected items.\n \'Cancel\' to stop, \'OK\' to delete.")']) }}
+						{{ Form::close() }}
+						</div>
 					</td>
 				</tr>
 				@endforeach

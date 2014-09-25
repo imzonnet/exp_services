@@ -1,3 +1,8 @@
-#messages {
+#messages .alert {
   margin: 20px auto 0px;
+}
+
+.item-icon img {
+	max-width: 50px;
+	max-height: 60px;
 }
