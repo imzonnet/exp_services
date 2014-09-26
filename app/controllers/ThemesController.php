@@ -72,12 +72,23 @@ class ThemesController extends \BaseController {
 			$theme_images = Input::get('theme_images');
 			foreach($theme_images as $image) {
 				$idata = array(
-					'image' => $image,
+					'image' => $image['url'],
+					'name' => $image['name'],
 					'theme_id' => $theme->id
 				);
 				ThemeImage::create($idata);
 			}
 		}
+		/**
+		* Create theme logs
+		* #Initial released.
+		*/
+		ThemeLog::create([
+			'description' => '#Initial released.',
+			'changed_date' => new Datetime,
+			'theme_id' => $theme->id,
+		]);
+
 		return Redirect::route('admin.themes.index')->with('message', 'Item had created!');
 	}
 
@@ -127,7 +138,7 @@ class ThemesController extends \BaseController {
 			'powerful_id' => 'required',
 			'category_id' => 'required'
 		);
-		
+
 		$validator = Validator::make($data = Input::except('images'), $rules);
 		
 		if ($validator->fails())
@@ -163,7 +174,8 @@ class ThemesController extends \BaseController {
 			foreach($theme_images as $key => $image) {
 				$themeimage = ThemeImage::find($key);
 				$idata = array(
-					'image' => $image
+					'image' => $image['url'],
+					'name' => $image['name']	
 				);
 				
 				$themeimage->update($idata);
@@ -174,7 +186,8 @@ class ThemesController extends \BaseController {
 			$theme_images = Input::get('new_theme_images');
 			foreach($theme_images as $image) {
 				$idata = array(
-					'image' => $image,
+					'image' => $image['url'],
+					'name' => $image['name'],
 					'theme_id' => $theme->id
 				);
 				ThemeImage::create($idata);
@@ -186,7 +199,7 @@ class ThemesController extends \BaseController {
 			$cdata = array(
 				'description' => Input::get('changelogs'),
 				'theme_id' => $theme->id,
-				'changed_date' => new Datetime()
+				'changed_date' => new Datetime
 			);
 			ThemeLog::create($cdata);
 		}

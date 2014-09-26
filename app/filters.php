@@ -13,7 +13,8 @@
 
 App::before(function($request)
 {
-	//
+	// Our own method to defend XSS attacks globally.
+    Common::globalXssClean();
 });
 
 

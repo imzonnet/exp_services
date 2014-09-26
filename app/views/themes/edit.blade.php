@@ -88,8 +88,8 @@ Edit
 							@foreach($theme_images as $image)
 							<div class="grid-item col-md-3">
 			            		<p><img src="{{asset($image->image)}}" class="image-item" /></p>
-			            		<input type="hidden" name="theme_images[{{$image->id}}]" value="{{$image->image}}" />
-			            		<p><input type="text" placeholder="Image name" class="form-control" name="name_theme_images[{{$image->id}}]" value="{{$image->name}}" /></p>
+			            		<input type="hidden" name="theme_images[{{$image->id}}][url]" value="{{$image->image}}" />
+			            		<p><input type="text" placeholder="Image name" class="form-control" name="theme_images[{{$image->id}}][name]" value="{{$image->name}}" /></p>
 			            		<p class="text-center"><span class="btnDelete btn btn-danger" data-id="{{$image->id}}" data-path="{{$image->image}}">Delete</span></p>
 		            		</div>
 							@endforeach
@@ -125,13 +125,13 @@ Edit
 			    @foreach($theme_logs as $log)
 			    <li>
 			        <!-- timeline icon -->
-			        <i class="fa fa-refresh bg-blue"></i>
+			        <i class="fa fa-refresh fa-spin bg-blue"></i>
 			        <div class="timeline-item">
 
 			            <h3 class="timeline-header"><i class="fa fa-clock-o"></i> {{$log->changed_date}}</h3>
 
 			            <div class="timeline-body">
-		                 	{{$log->description}}
+		                 	<pre>{{$log->description}}</pre>
 			            </div>
 			        </div>
 			    </li>
@@ -168,7 +168,8 @@ jQuery(document).ready(function($){
 	            	$.each(data.data, function(key,val){
 	            		html += '<div class="grid-item col-md-3">';
 		            		html += '<p><img src="{{asset("'+val+'")}}" class="image-item" /></p>';
-		            		html += '<input type="hidden" name="new_theme_images[]" value="' + val + '" />';
+		            		html += '<input type="hidden" name="new_theme_images[' + key + '][url]" value="' + val + '" />';
+		            		html += '<p><input type="text" class="form-control" name="new_theme_images[' + key + '][name]" value="{{$theme->name}}" /></p>';
 		            		html += '<p class="text-center"><span class="btnDelete btn btn-danger" data-id="0" data-path="'+val+'">Delete</span></p>';
 	            		html += '</div>';
 	            	})

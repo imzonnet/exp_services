@@ -16,7 +16,7 @@ Add new theme
 		{{ Form::open(array('route' => 'admin.themes.store', 'method' => 'post', 'files' => true, 'id' => 'formTheme')) }}
 			<div class="form-group">
 				{{Form::label('name', 'Name')}}
-				{{Form::text('name', Input::old('name'), ['class' => 'form-control'])}}
+				{{Form::text('name', Input::old('name'), ['class' => 'form-control', 'id' => 'name'])}}
 			</div>
 
 			<div class="form-group">
@@ -116,7 +116,8 @@ jQuery(document).ready(function($){
 	            	$.each(data.data, function(key,val){
 	            		html += '<div class="grid-item col-md-3">';
 		            		html += '<p><img src="{{asset("'+val+'")}}" class="image-item" /></p>';
-		            		html += '<input type="hidden" name="theme_images[]" value="' + val + '" />';
+		            		html += '<input type="hidden" name="theme_images[' + key +'][url]" value="' + val + '" />';
+		            		html += '<p><input type="text" class="form-control" name="theme_images[' + key +'][name]" value="' + $('#name').val() + '" />';
 		            		html += '<p class="text-center"><span class="btnDelete btn btn-danger" data-path="'+val+'">Delete</span></p>';
 	            		html += '</div>';
 	            	})

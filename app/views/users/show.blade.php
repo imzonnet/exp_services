@@ -13,7 +13,6 @@ Profile
 	<div class="box-body">
 		<div class="user-avatar col-md-2 col-lg-2">
 			<p><img class="img-circle" src="{{isset($user) && !empty($user->avatar) ? Asset($user->avatar) : asset('public/img/avatar.png')}}" /></p>
-			<p>{{ $user->first_name .' '. $user->last_name }}</p>
 		</div>
 		<div class="user-detail col-md-10 col-lg-10">
 			<ul class="list-unstyled">
