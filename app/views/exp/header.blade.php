@@ -53,6 +53,7 @@
 							<ul class="menu">
 								<li><a href="{{URL::route('users.show',$user->id)}}">Profile</a></li>
 								<li><a href="{{URL::route('items.index')}}">View Ticket</a></li>
+								<li><a href="{{URL::route('users.logout')}}">Logout</a></li>
 							</ul>
 						</li>
 						@else

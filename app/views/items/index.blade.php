@@ -22,8 +22,13 @@ List Messages
 				<td>{{$item->title}}</td>
 				<td>{{$item->created_at}}</td>
 				<td>		
-					<?php $status = $item->message->first()->status->name; ?>
-					<span class="btn btn-{{Status::getClass($status)}}">{{$status}}</span>
+					<?php $message = $item->message->first(); ?>
+					@if( empty($message))
+						<span class="btn btn-info">Waiting</span>
+					@else 
+						<?php $status = $item->message->first()->status; ?>
+						<span class="btn btn-{{Status::getClass($status)}}">{{$status}}</span>
+					@endif
 				</td>
 				<td>{{link_to_route('items.show', "Send Message", array($item->id), array('class' => 'btn btn-primary') )}}</td>
 			</tr>

@@ -25,7 +25,7 @@ class Category extends \Eloquent {
 	* Get list categories
 	* @return array()
 	*/
-	public function scopeGetList() {
+	public function scopeGetAll() {
 		$data = array();
 		$items = Category::all();
 		foreach ($items as $item) {

@@ -22,10 +22,10 @@ class UsersController extends \BaseController {
 	* Login
 	*/
 	public function login() {
-		if( ! Sentry::check()) {
+		if( ! Sentry::check() ) {
 			return View::make('users.login');
 		} else {
-			return Redirect::route('home.index');
+			return Redirect::route('users.index');
 		}
 	}
 	/**
