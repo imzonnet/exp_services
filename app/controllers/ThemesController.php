@@ -26,8 +26,8 @@ class ThemesController extends \BaseController {
 	 */
 	public function create()
 	{
-		$data['category'] = Category::getList();
-		$data['powerful'] = Powerful::getList();
+		$data['category'] = Category::getAll();
+		$data['powerful'] = Powerful::getAll();
 
 		return View::make('themes.create', $data);
 	}
@@ -43,6 +43,7 @@ class ThemesController extends \BaseController {
 			'name' => 'required',
 			'description' => 'required',
 			'thumbnail' => 'required|image',
+			'version' => '',
 			'powerful_id' => 'required',
 			'category_id' => 'required',
 		);
@@ -101,8 +102,10 @@ class ThemesController extends \BaseController {
 	public function show($id)
 	{
 		$theme = Theme::findOrFail($id);
+		$theme_images = $theme->themeImage;
+		$powerful = Powerful::getList($theme->powerful_id);
 
-		return View::make('themes.show', compact('theme'));
+		return View::make('exp.theme', compact('theme','theme_images','powerful'));
 	}
 
 	/**
@@ -114,8 +117,8 @@ class ThemesController extends \BaseController {
 	public function edit($id)
 	{
 		$data['theme'] = Theme::find($id);
-		$data['category'] = Category::getList();
-		$data['powerful'] = Powerful::getList();
+		$data['category'] = Category::getAll();
+		$data['powerful'] = Powerful::getAll();
 		$data['theme_images'] = Theme::find($id)->themeImage;
 		$data['theme_logs'] = Theme::find($id)->themeLog;
 		return View::make('themes.edit', $data);

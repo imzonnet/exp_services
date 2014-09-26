@@ -9,7 +9,8 @@ class HomesController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('homes.index');
+		$themes = Theme::orderBy('id', 'desc')->take(6)->get();
+		return View::make('exp.home', compact('themes'));
 	}
 
 	/**

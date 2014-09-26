@@ -23,6 +23,7 @@ Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@d
 Route::get('/items/create', ['as' => 'items.create', 'uses'=>'ItemsController@create']);
 Route::post('/items/store', ['as' => 'items.store', 'uses'=>'ItemsController@store']);
 
+Route::get('themes/{id}', ['as' => 'theme.show', 'uses' => 'ThemesController@show'])->where('id','[0-9]+');
 
 
 Route::group(['before' => 'sentry'], function(){
@@ -46,7 +47,7 @@ Route::group(['before' => 'sentry|inGroup:administer', 'prefix' => 'admin'], fun
 	
 });
 
-/**
+/*
 Event::listen('illuminate.query', function($query)
 {
     var_dump($query);

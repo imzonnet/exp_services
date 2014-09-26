@@ -22,15 +22,25 @@ class Powerful extends \Eloquent {
 	}
 
 	/**
-	* Get list categories
+	* Get all powerful
 	* @return array()
 	*/
-	public function scopeGetList() {
+	public function scopeGetAll() {
 		$data = array();
 		$items = Powerful::all();
 		foreach ($items as $item) {
 			$data[$item->id] = $item->name;
 		}
+		return $data;
+	}
+	/**
+	* Get list powerful from a id
+	* @var array()
+	* @return array()
+	*/
+	public static function getList($arg) {
+		$id = json_decode($arg);
+		$data = Powerful::whereIn('id', $id)->get();
 		return $data;
 	}
 }
