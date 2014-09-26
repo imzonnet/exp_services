@@ -99,7 +99,7 @@ class ThemesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($id, $title = NULL)
 	{
 		$theme = Theme::findOrFail($id);
 		$theme_images = $theme->themeImage;
@@ -251,12 +251,10 @@ class ThemesController extends \BaseController {
 	*/
 	public function ajaxRemoveImages() {
 		$path = Input::get('path');
+		$img = ThemeImage::find(Input::get('id'));
+		if( count($img) > 0 ) $img->delete();
 		if(file_exists($path)) {
 			unlink($path);
-			if(Input::has('id')) {
-				$img = ThemeImage::find(Input::get('id'));
-				if( count($img) > 0 ) $img->delete();
-			}
 			return Response::json(array('success' => true));
 		} else {
 			return Response::json(array('success' => false));

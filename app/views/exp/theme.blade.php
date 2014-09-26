@@ -13,7 +13,7 @@
 		</div>
 		<div class="col-md-4">
 			<ul class="list-unstyled">
-				<li>Release Date: {{$theme->created_date}}</li>
+				<li>Release Date: {{$theme->created_at}}</li>
 				<li>Version: {{$theme->version}}</li>
 				<li>Download: 0</li>
 			</ul>

@@ -23,7 +23,7 @@ Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@d
 Route::get('/items/create', ['as' => 'items.create', 'uses'=>'ItemsController@create']);
 Route::post('/items/store', ['as' => 'items.store', 'uses'=>'ItemsController@store']);
 
-Route::get('themes/{id}', ['as' => 'theme.show', 'uses' => 'ThemesController@show'])->where('id','[0-9]+');
+Route::get('theme/{id}/{title?}', ['as' => 'theme.show', 'uses' => 'ThemesController@show'])->where(array('id' => '[0-9]+', 'title' => '[a-zA-Z0-9\-]+'));
 
 
 Route::group(['before' => 'sentry'], function(){

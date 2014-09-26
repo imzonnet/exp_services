@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>@yield('title', "Home" ) | Home</title>
+        <title>@yield('title', "Home" ) | JoomExp Services</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
         <!-- jQuery 2.1.1 -->

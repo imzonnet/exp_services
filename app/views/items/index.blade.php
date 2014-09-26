@@ -26,7 +26,7 @@ List Messages
 					@if( empty($message))
 						<span class="btn btn-info">Waiting</span>
 					@else 
-						<?php $status = $item->message->first()->status; ?>
+						<?php $status = $item->message->first()->status->name; ?>
 						<span class="btn btn-{{Status::getClass($status)}}">{{$status}}</span>
 					@endif
 				</td>

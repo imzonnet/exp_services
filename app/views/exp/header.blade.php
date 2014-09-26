@@ -47,15 +47,15 @@
 			<div class="region region-navigation col-xs-12 col-sm-12 col-md-7 col-lg-7">
 				<div id="exp-dropdown" class="exp-menu exp-dropdown">
 					<ul class="menu">
-						<li><a href="#">Ticket System</a></li>
-						<li><a href="#">Forum Support</a></li>
+						<li><a href="{{URL::route('items.create')}}"><i class="fa fa-check"></i> Send Request</a></li>
+						<li><a href="#"><i class="fa fa-comments"></i> Forum Support</a></li>
 						@if( isset($user) )
 						<li>
 							<a href="#"><i class="fa fa-user"></i> Hello {{$user->first_name .' '. $user->last_name}}</a>
 							<ul class="menu">
-								<li><a href="{{URL::route('users.show',$user->id)}}">Profile</a></li>
-								<li><a href="{{URL::route('items.index')}}">View Ticket</a></li>
-								<li><a href="{{URL::route('users.logout')}}">Logout</a></li>
+								<li><a href="{{URL::route('users.show',$user->id)}}"><i class="fa fa-gear"></i> Profile</a></li>
+								<li><a href="{{URL::route('items.index')}}"><i class="fa fa-check"></i> View Request</a></li>
+								<li><a href="{{URL::route('users.logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
 							</ul>
 						</li>
 						@else
