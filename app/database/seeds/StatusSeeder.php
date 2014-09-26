@@ -11,7 +11,7 @@ class StatusSeeder extends Seeder {
 	{
 		DB::table('cs_status')->delete();
 
-		$status = array("Waiting", "Pending", "Solved");
+		$status = array("Open", "In Progress", "Close", "Cancel");
 		foreach($status as $stt) {
 			$status = new Status();
 			$status->name = $stt;

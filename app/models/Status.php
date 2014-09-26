@@ -40,14 +40,17 @@ class Status extends Eloquent {
 		//dd($status);
 		$status = strtolower($status);
 		switch ($status) {
-			case 'waiting':
+			case 'open':
 				$class = "info";
 				break;
-			case 'pending':
+			case 'in progess':
 				$class = "warning";
 				break;
-			case 'solved':
+			case 'close':
 				$class = "success";
+				break;
+			case 'cancel':
+				$class = "danger";
 				break;
 			default:
 				$class = "info";

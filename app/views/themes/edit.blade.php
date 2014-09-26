@@ -56,14 +56,14 @@ Edit
 
 			<div class="form-group">
 				{{Form::label('version', 'Version')}}
-				{{Form::text('version', Input::old('version', '1.0'), ['class' => 'form-control', 'placdeholder' => '1.0'])}}
+				{{Form::text('version', Input::old('version'), ['class' => 'form-control', 'placdeholder' => '1.0'])}}
 			</div>
 
 			<div class="form-group">
 				{{Form::label('price', 'Price')}}
 				<div class="input-group">
 					<span class="input-group-addon">$</span>
-					{{Form::text('price', Input::old('price', '0.0'), ['class' => 'form-control', 'placdeholder' => '20'])}}
+					{{Form::text('price', Input::old('price'), ['class' => 'form-control', 'placdeholder' => '20'])}}
 				</div>
 			</div>
 			

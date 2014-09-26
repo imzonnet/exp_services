@@ -3,13 +3,15 @@
 		<div class="row">
 			<!-- .region-top-left-->
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<div class="content call-us">
-					<ul class="unstyled list-inline">
-						<li><i class="fa fa-phone"></i> +555.123.4567</li>
-						<li><a href="#">News</a></li>
-						<li><a href="#">Case Studies</a></li>
-						<li><a href="#">F.A.Q</a></li>
-					</ul>
+				<div class="block">
+					<div class="block-content call-us">
+						<ul class="unstyled list-inline">
+							<li><i class="fa fa-phone"></i> +555.123.4567</li>
+							<li><a href="#">News</a></li>
+							<li><a href="#">Case Studies</a></li>
+							<li><a href="#">F.A.Q</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<!-- END .region-top-left-->
