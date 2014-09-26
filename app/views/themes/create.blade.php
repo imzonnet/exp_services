@@ -1,11 +1,13 @@
 @extends('layouts.layout')
 
-@section('title')
+@section('content-title')
 Add new theme
 @stop
 
 @section('content')
-
+<ul class="navigation list-inline">
+	<li><a href="{{URL::route('admin.themes.index')}}" class="btn btn-primary">Back</a></li>
+</ul>
 <div class="box box-success">
 	<div class="box-header">
 		<h3 class="box-title">Add New theme</h3>
@@ -155,7 +157,6 @@ jQuery(document).ready(function($){
 			}
     	});
 	});
-	
 
 });
 

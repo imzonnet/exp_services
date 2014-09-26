@@ -31,8 +31,8 @@ Themes Manager
 
 				<td>
 					<div class="btn-group-vertical">
-					{{ link_to_route('admin.powerful.edit', "Edit", array($item->id), array('class' => 'btn btn-info') ) }}
-					{{ Form::model( $item, array('route' => array('admin.powerful.destroy', $item->id), 'method' => 'delete') ) }}
+					{{ link_to_route('admin.themes.edit', "Edit", array($item->id), array('class' => 'btn btn-info') ) }}
+					{{ Form::model( $item, array('route' => array('admin.themes.destroy', $item->id), 'method' => 'delete') ) }}
 						{{ Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("You are about to permanently delete the selected items.\n \'Cancel\' to stop, \'OK\' to delete.")']) }}
 					{{ Form::close() }}
 					</div>

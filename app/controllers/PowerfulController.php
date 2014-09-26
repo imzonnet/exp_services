@@ -43,14 +43,14 @@ class PowerfulController extends \BaseController {
 		}
 
 		//upload powerful icon
-		if( !is_null(Input::file('icon')) ) {
+		if( Input::hasFile('icon') ) {
 			$name = md5(time() . Input::file('icon')->getClientOriginalName()) . '.' . Input::file('icon')->getClientOriginalExtension();
 			$folder = "public/uploads/powerful";
 			Input::file('icon')->move($folder, $name);
 			$path = $folder . '/' . $name;
-		}
-		if( isset($path) )
+			//update new path
 			$data['icon'] = $path;
+		}
 		
 		//save to database
 		Powerful::create($data);
@@ -93,15 +93,20 @@ class PowerfulController extends \BaseController {
 		}
 
 		//upload powerful icon
-		if( !is_null(Input::file('icon')) ) {
+		if( Input::hasFile('icon') ) {
+			//delete old icon
+			if( file_exists($powerful->icon) ) unlink($powerful->icon);
+			//create new icon
 			$name = md5(time() . Input::file('icon')->getClientOriginalName()) . '.' . Input::file('icon')->getClientOriginalExtension();;
 			$folder = "public/uploads/powerful";
 			Input::file('icon')->move($folder, $name);
 			$path = $folder . '/' . $name;
-		}
-		if( isset($path) )
+
+			//update new path
 			$data['icon'] = $path;
-		
+		} else {
+			unset($data['icon']);
+		}
 
 		$powerful->update($data);
 

@@ -22,7 +22,7 @@ class Theme extends \Eloquent {
 	* Relationship with table t_theme_logs
 	*/
 	public function themeLog() {
-		return $this->hasMany('themeLog');
+		return $this->hasMany('themeLog')->orderBy('id','desc');
 	}
 	/**
 	* Relationship with table t_powerful

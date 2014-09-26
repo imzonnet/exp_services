@@ -14,7 +14,7 @@ class ThemesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$themes = Theme::orderBy('id', 'desc')->paginate(10);
+		$themes = Theme::orderBy('id', 'desc')->paginate(8);
 
 		return View::make('themes.index', compact('themes'));
 	}
@@ -102,9 +102,12 @@ class ThemesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$theme = Theme::find($id);
-
-		return View::make('themes.edit', compact('theme'));
+		$data['theme'] = Theme::find($id);
+		$data['category'] = Category::getList();
+		$data['powerful'] = Powerful::getList();
+		$data['theme_images'] = Theme::find($id)->themeImage;
+		$data['theme_logs'] = Theme::find($id)->themeLog;
+		return View::make('themes.edit', $data);
 	}
 
 	/**
@@ -117,16 +120,78 @@ class ThemesController extends \BaseController {
 	{
 		$theme = Theme::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Theme::$rules);
-
+		$rules = array(
+			'name' => 'required',
+			'description' => 'required',
+			'thumbnail' => 'image',
+			'powerful_id' => 'required',
+			'category_id' => 'required'
+		);
+		
+		$validator = Validator::make($data = Input::except('images'), $rules);
+		
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+		/**
+		* Convert list id powerful to json
+		*/
+		$data['powerful_id'] = json_encode($data['powerful_id']);
 
+		/**
+		* Upload new theme thunbnail
+		*/
+		if( Input::hasFile('thumbnail') ) {
+			//remove old theme thumbnail
+			if(file_exists($theme->thumbnail)) unlink($theme->thumbnail);
+			//create new theme thumbnail
+			$tb_name = md5(time() . Input::file('thumbnail')->getClientOriginalName()) . '.' . Input::file('thumbnail')->getClientOriginalExtension();
+			Input::file('thumbnail')->move($this->path, $tb_name);
+			$tb_path = $this->path . '/' . $tb_name;
+			$data['thumbnail'] = $tb_path;
+		} else {
+			unset($data['thumbnail']);
+		}
+
+		//create new theme
 		$theme->update($data);
+		
+		//update list old theme images
+		if( Input::has('theme_images') ) {
+			$theme_images = Input::get('theme_images');
+			foreach($theme_images as $key => $image) {
+				$themeimage = ThemeImage::find($key);
+				$idata = array(
+					'image' => $image
+				);
+				
+				$themeimage->update($idata);
+			}
+		}
+		//create new theme images
+		if( Input::has('new_theme_images') ) {
+			$theme_images = Input::get('new_theme_images');
+			foreach($theme_images as $image) {
+				$idata = array(
+					'image' => $image,
+					'theme_id' => $theme->id
+				);
+				ThemeImage::create($idata);
+			}
+		}
 
-		return Redirect::route('themes.index');
+		//update theme change logs
+		if( Input::has('changelogs') ) {
+			$cdata = array(
+				'description' => Input::get('changelogs'),
+				'theme_id' => $theme->id,
+				'changed_date' => new Datetime()
+			);
+			ThemeLog::create($cdata);
+		}
+		return Redirect::route('admin.themes.index')->with('message', 'Item had updated!');
+
 	}
 
 	/**
@@ -139,7 +204,7 @@ class ThemesController extends \BaseController {
 	{
 		Theme::destroy($id);
 
-		return Redirect::route('themes.index');
+		return Redirect::route('admin.themes.index')->with('message', 'Item had delted!');
 	}
 
 	/**
@@ -172,6 +237,10 @@ class ThemesController extends \BaseController {
 		$path = Input::get('path');
 		if(file_exists($path)) {
 			unlink($path);
+			if(Input::has('id')) {
+				$img = ThemeImage::find(Input::get('id'));
+				if( count($img) > 0 ) $img->delete();
+			}
 			return Response::json(array('success' => true));
 		} else {
 			return Response::json(array('success' => false));

@@ -132,17 +132,18 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 		if( !is_null(Input::file('avatar')) ) {
-	    	$ext = array('image/png', 'image/jpeg');
-			if(in_array(Input::file('avatar')->getMimeType(), $ext)) {
-				$fileName =  time().Input::file('avatar')->getClientOriginalName();
-				$destinationPath = 'public/uploads/profile';
-				Input::file('avatar')->move($destinationPath, $fileName);
-				$avatar_path = $destinationPath . '/' . $fileName;
-			}
-		}
-		if( isset($avatar_path) ) {
+			$fileName =  time().Input::file('avatar')->getClientOriginalName();
+			$destinationPath = 'public/uploads/profile';
+			Input::file('avatar')->move($destinationPath, $fileName);
+			$avatar_path = $destinationPath . '/' . $fileName;
+
+			//update new path image
 			$data['avatar'] = $avatar_path;
 		}
+
+		/**
+		* Process change password if user type old password
+		*/
 		if( Input::has('old_password') ) {
 			$pwrules = array(
 				'password' => 'required|confirmed'
@@ -157,6 +158,7 @@ class UsersController extends \BaseController {
 				return Redirect::back()->withErrors("Old Password don't match")->withInput();
 			}
 		}
+		
 		$user->update($data);
 
 		return Redirect::route('users.show',$user->id)->with('message','Your profile had updated!');
