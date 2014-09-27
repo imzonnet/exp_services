@@ -62,7 +62,7 @@ class ItemsController extends \BaseController {
 				'info' => 'required',
 				'budget_id' =>  'required',
 				'deliver_in' => 'required|numeric',
-				'attachment' => 'mines:pdf,doc,docx,txt'
+				'attachment' => 'mimes:pdf,doc,docx,txt'
 			);
 			$validator = Validator::make(Input::all(), $rules);
 			//validate the input
@@ -144,7 +144,7 @@ class ItemsController extends \BaseController {
 				'info' => 'required',
 				'budget_id' =>  'required',
 				'deliver_in' => 'required|numeric',
-				'attachment' => 'mines:pdf,doc,docx,txt'
+				'attachment' => 'mimes:pdf,doc,docx,txt'
 			);
 
 			$validator = Validator::make(Input::all(), $rules);
