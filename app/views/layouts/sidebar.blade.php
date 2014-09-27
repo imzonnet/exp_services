@@ -3,7 +3,7 @@
     <div class="user-panel">
     <?php if(Sentry::check()) $user = Sentry::getUser(); ?>
         <div class="pull-left image">
-            <img src="{{isset($user) && !empty($user->avatar) ? Asset($user->avatar) : Asset('public/images/avatar.png')}}" class="img-circle" alt="Avatar" />
+            <img src="{{Common::getPathImage($user->icon,'public/images/avatar.png')}}" class="img-circle" alt="Avatar" />
         </div>
         <div class="pull-left info">
             <p>Hello, {{ isset($user) ? $user->first_name .' '. $user->last_name : "Guest"}}</p>

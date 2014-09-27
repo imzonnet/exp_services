@@ -20,7 +20,7 @@ Powerful Manager
 				{{Form::label('icon', 'Icon')}}
 				<div class="clearfix">
 					<div class="item-icon pull-left" style="margin-right: 10px;">
-					 {{ HTML::image(asset($powerful->icon), 'Powerful icon', ['title' => $powerful->name]) }}
+					 {{ HTML::image(Common::getPathImage($powerful->icon), 'Powerful icon', ['title' => $powerful->name]) }}
 					</div>
 					<div class="file-form">
 						{{Form::file('icon')}}

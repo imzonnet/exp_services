@@ -22,7 +22,7 @@
     <div class="product col-md-4 col-lg-4 col-sm-6 col-xs-12">
         <div class="product-header">
             <a href="{{URL::route( 'theme.show', array($theme->id, Str::slug($theme->name)) )}}" title="{{$theme->name}}">
-            {{HTML::image(asset($theme->thumbnail), $theme->name)}}
+            {{HTML::image(Common::getPathImage($theme->thumbnail), $theme->name)}}
                 <div class="overlay"><i class="fa fa-search"></i></div>
             </a>
         <h4 class="product-title">

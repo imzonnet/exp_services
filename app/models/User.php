@@ -24,6 +24,12 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	protected $hidden = array('password', 'remember_token');
 
 	/**
+	* Get avatar URL
+	*/
+	public static function getAvatar($uri) {
+		return Common::getPathImage($uri);
+	}
+	/**
 	* Relationship with table cs_items
 	*/
 	public function item() {

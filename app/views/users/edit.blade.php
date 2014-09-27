@@ -45,7 +45,7 @@ Edit Profile
 		</div>
 		<div class="form-group clearfix">
 			<div class="user-avatar col-md-2">
-            	<img src="{{isset($user) && !empty($user->avatar) ? $user->avatar : Asset('public/img/avatar.png')}}" class="img-circle" alt="User Image" />
+            	<img src="{{Common::getPathImage($user->avatar,'public/images/avatar.png')}}" class="img-circle" alt="User Image" />
 			</div>		
 			<div class="user-avatar col-md-2">
 				{{Form::label('avatar', 'Avatar')}}

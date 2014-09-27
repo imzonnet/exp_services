@@ -33,4 +33,16 @@ class Common {
 	 
 	    return $result;
 	}
+
+	/**
+	* Get full path file URL
+	* Return defualt images if path not found
+	*/
+	public static function getPathImage($uri, $default = 'public/images/default.png' ) {
+		if( file_exists($uri) ) {
+			return asset($uri);
+		} else {
+			return asset($default);
+		}
+	}
 }

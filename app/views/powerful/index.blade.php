@@ -48,7 +48,9 @@ Powerful Manager
 				</tr>
 				@foreach($powerful as $item)
 				<tr>
-					<td class="item-icon">{{ HTML::image(asset($item->icon), 'Powerful icon', ['title' => $item->name]) }}</td>
+					<td class="item-icon">
+					{{ HTML::image(Common::getPathImage($item->icon), 'Powerful icon', ['title' => $item->name]) }}
+					</td>
 					<td>{{ $item->name }}</td>
 					<td>{{ $item->description }}</td>
 					<td>

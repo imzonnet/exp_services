@@ -22,7 +22,7 @@ Themes Manager
 			</tr>
 			@foreach($themes as $item)
 			<tr>
-				<td>{{ HTML::image(asset($item->thumbnail), $item->name, ['class' => 'theme-thumbnail']) }}</td>
+				<td>{{ HTML::image(Common::getPathImage($item->thumbnail), $item->name, ['class' => 'theme-thumbnail']) }}</td>
 				<td>{{ $item->name }}</td>
 				<td>{{ $item->category->name }}</td>
 				<td>{{ $item->version }}</td>

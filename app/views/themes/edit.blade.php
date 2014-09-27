@@ -23,7 +23,7 @@ Edit
 				{{Form::label('thumbnail', 'Thumbnail')}}
 				<div class="clearfix">
 					<div class="item-icon pull-left" style="margin-right: 10px;">
-					 {{ HTML::image(asset($theme->thumbnail), 'Powerful icon', ['title' => $theme->name]) }}
+					 {{ HTML::image(Common::getPathImage($theme->thumbnail), 'Powerful icon', ['title' => $theme->name]) }}
 					</div>
 					<div class="file-form">
 						{{Form::file('thumbnail', ['id' => 'thumbnail'])}}
@@ -87,7 +87,7 @@ Edit
 
 							@foreach($theme_images as $image)
 							<div class="grid-item col-md-3">
-			            		<p><img src="{{asset($image->image)}}" class="image-item" /></p>
+			            		<p><img src="{{Common::getPathImage($image->image)}}" class="image-item" /></p>
 			            		<input type="hidden" name="theme_images[{{$image->id}}][url]" value="{{$image->image}}" />
 			            		<p><input type="text" placeholder="Image name" class="form-control" name="theme_images[{{$image->id}}][name]" value="{{$image->name}}" /></p>
 			            		<p class="text-center"><span class="btnDelete btn btn-danger" data-id="{{$image->id}}" data-path="{{$image->image}}">Delete</span></p>
