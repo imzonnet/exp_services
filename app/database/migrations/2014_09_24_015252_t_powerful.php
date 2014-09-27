@@ -16,7 +16,7 @@ class TPowerful extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 45);
-			$table->string('icon', 100)->nullable()->default('public/images/icon.png');
+			$table->string('icon', 100)->nullable();
 			$table->string('description', 100)->nullable();
 		});
 	}
