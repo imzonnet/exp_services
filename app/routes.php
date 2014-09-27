@@ -17,6 +17,7 @@ Route::get('/', function() {
 	return Redirect::route('home.index');
 });
 
+Route::get('/users', ['as' => 'users.index', 'uses'=>'UsersController@index']);
 Route::get('/users/login', ['as' => 'users.login', 'uses'=>'UsersController@login']);
 Route::post('/users/login', ['as' => 'users.doLogin', 'uses'=>'UsersController@doLogin']);
 
@@ -29,7 +30,7 @@ Route::get('theme/{id}/{title?}', ['as' => 'theme.show', 'uses' => 'ThemesContro
 Route::group(['before' => 'sentry'], function(){
 
 	Route::get('/users/logout', ['as' => 'users.logout', 'uses'=>'UsersController@logout']);
-	Route::resource('users', 'UsersController');
+	Route::resource('users', 'UsersController', array('except' => array('index')));
 
 	Route::get('items/index', ['as' => 'items.index', 'uses' => 'ItemsController@index']);
 	Route::get('items/{id}', ['as' => 'items.show', 'uses' => 'ItemsController@show'])->where('id','[0-9]+');
