@@ -15,7 +15,7 @@ class Service extends Eloquent {
 	* Relationship with table cs_items
 	*/
 	public function item() {
-		return $this->hasMany('item');
+		return $this->hasMany('Item');
 	}
 
 	public function scopeGetList() {

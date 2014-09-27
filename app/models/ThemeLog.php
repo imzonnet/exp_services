@@ -18,6 +18,6 @@ class ThemeLog extends \Eloquent {
 	* Relationship with table t_themes
 	*/
 	public function theme() {
-		return $this->belongsTo('theme');
+		return $this->belongsTo('Theme');
 	}
 }

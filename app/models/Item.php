@@ -15,27 +15,27 @@ class Item extends Eloquent {
 	* Relationship with table cs_messages
 	*/
 	public function message() {
-		return $this->hasMany('message')->orderBy('id','desc');
+		return $this->hasMany('Message')->orderBy('id','desc');
 	}
 
 	/**
 	* Relationship with table users
 	*/
 	public function user() {
-		return $this->belongsTo('user');
+		return $this->belongsTo('User');
 	}
 
 	/**
 	* Relationship with table cs_service_types
 	*/
 	public function service() {
-		return $this->belongsTo('service');
+		return $this->belongsTo('Service');
 	}
 
 	/**
 	* Relationship with table cs_budgets
 	*/
 	public function budget() {
-		return $this->belongsTo('budget');
+		return $this->belongsTo('Budget');
 	}
 }

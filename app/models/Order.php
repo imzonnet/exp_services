@@ -18,6 +18,6 @@ class Order extends \Eloquent {
 	* Relationship with table users
 	*/
 	public function user() {
-		return $this->belongsTo('user');
+		return $this->belongsTo('User');
 	}
 }

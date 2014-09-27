@@ -16,24 +16,24 @@ class Theme extends \Eloquent {
 	* Relationship with table t_theme_images
 	*/
 	public function themeImage() {
-		return $this->hasMany('themeImage');
+		return $this->hasMany('ThemeImage');
 	}
 	/**
 	* Relationship with table t_theme_logs
 	*/
 	public function themeLog() {
-		return $this->hasMany('themeLog')->orderBy('id','desc');
+		return $this->hasMany('ThemeLog')->orderBy('id','desc');
 	}
 	/**
 	* Relationship with table t_powerful
 	*/
 	public function powerful() {
-		return $this->belongsTo('powerful');
+		return $this->belongsTo('Powerful');
 	}
 	/**
 	* Relationship with table t_categories
 	*/
 	public function category() {
-		return $this->belongsTo('category');
+		return $this->belongsTo('Category');
 	}
 }

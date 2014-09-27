@@ -17,20 +17,20 @@ class Message extends Eloquent {
 	* Relationship with table users
 	*/
 	public function user() {
-		return $this->belongsTo('user');
+		return $this->belongsTo('User');
 	}
 	
 	/**
 	* Relationship with table cs_items
 	*/
 	public function item() {
-		return $this->belongsTo('item');
+		return $this->belongsTo('Item');
 	}
 
 	/**
 	* Relationship with table cs_status
 	*/
 	public function status() {
-		return $this->belongsTo('status');
+		return $this->belongsTo('Status');
 	}
 }

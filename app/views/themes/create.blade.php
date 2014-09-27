@@ -95,7 +95,7 @@ jQuery(document).ready(function($){
 
 	$('#btnUpload').click(function(){
 		$('#btnUpload').attr('disabled','disabled');
-
+		$('#grid-view').before('<div class="uploading alert-danger text-center">Uploading...</div>');
 		var formData = new FormData();
 		formData.append("_token", "{{csrf_token()}}");
 
@@ -127,6 +127,7 @@ jQuery(document).ready(function($){
 	            }
 
 	            $('#images').val("");
+				$('.uploading').remove();
 	            $('#btnUpload').removeAttr('disabled');
 	    	}
     	});//$.ajax

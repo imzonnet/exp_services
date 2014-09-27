@@ -15,7 +15,7 @@ class Status extends Eloquent {
 	* Relationship with table cs_messages
 	*/
 	public function message() {
-		return $this->hasMany('message');
+		return $this->hasMany('Message');
 	}
 
 	/**

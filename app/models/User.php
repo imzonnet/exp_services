@@ -27,21 +27,21 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	* Relationship with table cs_items
 	*/
 	public function item() {
-		return $this->hasMany('item');
+		return $this->hasMany('Item');
 	}
 
 	/**
 	* Relationship with table cs_messages
 	*/
 	public function message() {
-		return $this->hasMany('message');
+		return $this->hasMany('Message');
 	}
 
 	/**
 	* Relationship with table t_powerful
 	*/
 	public function order() {
-		return $this->hasMany('order');
+		return $this->hasMany('Order');
 	}
 	/**
 	* Generate random password
