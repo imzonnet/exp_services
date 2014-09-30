@@ -183,9 +183,9 @@ class ItemsController extends \BaseController {
 	public function show($id)
 	{
 		$item = Item::find($id);
-		if(!$this->user->inGroup(Sentry::findGroupByName('supporter'))) {
+		if($this->user->inGroup(Sentry::findGroupByName('member'))) {
 			if($this->user->id != $item->user_id) {
-				return Redirect::route('users.items');
+				return Redirect::route('items.index');
 			}	
 		}
 		$messages = $item->message;
