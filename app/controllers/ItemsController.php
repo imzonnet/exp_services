@@ -183,7 +183,7 @@ class ItemsController extends \BaseController {
 	public function show($id)
 	{
 		$item = Item::find($id);
-		if($this->user->inGroup(Sentry::findGroupByName('member'))) {
+		if($this->user->inGroup(Sentry::findGroupByName('user'))) {
 			if($this->user->id != $item->user_id) {
 				return Redirect::route('items.index');
 			}	
