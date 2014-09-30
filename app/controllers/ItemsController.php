@@ -19,7 +19,7 @@ class ItemsController extends \BaseController {
 	 */
 	public function index()
 	{
-		if($this->user->inGroup(Sentry::findGroupByName('supporter'))) {
+		if($this->user->inGroup(Sentry::findGroupByName('supporter')) || $this->user->inGroup(Sentry::findGroupByName('admin'))) {
 			$items = Item::orderBy('id', 'desc')->paginate(10);
 		} else {
 			$items = Item::where('user_id','=',$this->user->id)->orderBy('id', 'desc')->paginate(10);
