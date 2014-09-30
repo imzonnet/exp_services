@@ -132,6 +132,9 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 		if( !is_null(Input::file('avatar')) ) {
+			//delete old avatar
+			if( File::exists($user->avatar) ) File::delete($user->avatar);
+
 			$fileName =  time().Input::file('avatar')->getClientOriginalName();
 			$destinationPath = 'public/uploads/profile';
 			Input::file('avatar')->move($destinationPath, $fileName);

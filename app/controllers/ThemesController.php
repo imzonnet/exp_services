@@ -158,7 +158,7 @@ class ThemesController extends \BaseController {
 		*/
 		if( Input::hasFile('thumbnail') ) {
 			//remove old theme thumbnail
-			if(file_exists($theme->thumbnail)) unlink($theme->thumbnail);
+			if(File::exists($theme->thumbnail)) File::delete($theme->thumbnail);
 			//create new theme thumbnail
 			$tb_name = md5(time() . Input::file('thumbnail')->getClientOriginalName()) . '.' . Input::file('thumbnail')->getClientOriginalExtension();
 			Input::file('thumbnail')->move($this->path, $tb_name);
@@ -253,8 +253,8 @@ class ThemesController extends \BaseController {
 		$path = Input::get('path');
 		$img = ThemeImage::find(Input::get('id'));
 		if( count($img) > 0 ) $img->delete();
-		if(file_exists($path)) {
-			unlink($path);
+		if(File::exists($path)) {
+			File::delete($path);
 			return Response::json(array('success' => true));
 		} else {
 			return Response::json(array('success' => false));

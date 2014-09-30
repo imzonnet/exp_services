@@ -95,7 +95,7 @@ class PowerfulController extends \BaseController {
 		//upload powerful icon
 		if( Input::hasFile('icon') ) {
 			//delete old icon
-			if( file_exists($powerful->icon) ) unlink($powerful->icon);
+			if( File::exists($powerful->icon) ) File::delete($powerful->icon);
 			//create new icon
 			$name = md5(time() . Input::file('icon')->getClientOriginalName()) . '.' . Input::file('icon')->getClientOriginalExtension();;
 			$folder = "public/uploads/powerful";
